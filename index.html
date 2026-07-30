@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nalezeno</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F7F6;
+    --surface:#FFFFFF;
+    --ink:#16241F;
+    --muted:#5E6D67;
+    --accent:#0F6E56;
+    --accent-soft:#DCEEE8;
+    --action:#D85A30;
+    --action-soft:#FBE3D9;
+    --radius:24px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:24px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .card{
+    width:100%;
+    max-width:420px;
+    background:var(--surface);
+    border-radius:var(--radius);
+    padding:40px 28px 32px;
+    text-align:center;
+    box-shadow:0 1px 2px rgba(22,36,31,0.04), 0 12px 32px rgba(22,36,31,0.06);
+  }
+  .brandmark{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:13px;
+    letter-spacing:0.02em;
+    color:var(--muted);
+    margin-bottom:22px;
+  }
+  .badge{
+    position:relative;
+    width:112px;
+    height:112px;
+    margin:0 auto 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .badge-ring{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    background:var(--action-soft);
+  }
+  .badge-ring.pulse{
+    animation:pulse 1.8s cubic-bezier(0.2,0.6,0.4,1) infinite;
+  }
+  .badge-ring.pulse.delay{
+    animation-delay:0.6s;
+  }
+  @keyframes pulse{
+    0%{transform:scale(0.9);opacity:0.65;}
+    100%{transform:scale(2.6);opacity:0;}
+  }
+  .badge-core{
+    position:relative;
+    width:112px;
+    height:112px;
+    border-radius:50%;
+    background:var(--action);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    box-shadow:0 10px 24px rgba(216,90,48,0.32);
+    transition:transform 0.15s ease;
+  }
+  .badge-core:active{transform:scale(0.96);}
+  .badge-core:focus-visible{outline:3px solid var(--action-soft);outline-offset:4px;}
+  .tap-label{
+    font-size:13px;
+    font-weight:600;
+    color:var(--action);
+    letter-spacing:0.02em;
+    margin-bottom:28px;
+  }
+  .eyebrow{
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:26px;
+    line-height:1.25;
+    letter-spacing:-0.01em;
+    margin-bottom:12px;
+  }
+  h1 span{color:var(--accent);}
+  .lead{
+    font-size:15px;
+    line-height:1.6;
+    color:var(--muted);
+    margin-bottom:32px;
+    padding:0 4px;
+  }
+  .note{
+    margin-top:18px;
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  .divider{
+    height:1px;
+    background:#EAEEEC;
+    margin:28px 0 20px;
+  }
+  .footer{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-size:12px;
+    color:var(--muted);
+  }
+  .footer .logo{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .badge-ring.pulse{animation:none;}
+  }
+  @media (max-width:360px){
+    .card{padding:32px 20px 26px;}
+    h1{font-size:23px;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="brandmark">Logo</div>
+
+    <div class="badge">
+      <div class="badge-ring pulse"></div>
+      <div class="badge-ring pulse delay"></div>
+      <a id="call-link" class="badge-core" href="#" aria-label="Zavolat">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.6 10.8C8 13.6 10.4 16 13.2 17.4L15.4 15.2C15.7 14.9 16.1 14.8 16.5 15C17.8 15.4 19.1 15.6 20.5 15.6C21.1 15.6 21.5 16 21.5 16.6V20.5C21.5 21.1 21.1 21.5 20.5 21.5C10.8 21.5 3 13.7 3 4C3 3.4 3.4 3 4 3H7.9C8.5 3 8.9 3.4 8.9 4C8.9 5.4 9.1 6.7 9.5 8C9.6 8.4 9.5 8.8 9.3 9.1L7.1 11.3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <p id="call-text" class="tap-label">Klepněte pro zavolání</p>
+
+    <div class="eyebrow">Někoho hledáte</div>
+    <h1>Ahoj, patřím <span id="jmeno-text">k někomu, kdo se ztratil</span></h1>
+    <p class="lead">
+      Díky, že jste se zastavili. Stačí jedno zavolání a dáme rodině vědět,
+      že je vše v pořádku.
+    </p>
+
+    <p class="note">Žádná aplikace, žádná registrace. Jen telefonát tomu, komu na tom nejvíc záleží.</p>
+
+    <div class="divider"></div>
+
+    <div class="footer">
+      <span>Zabezpečeno přes</span><span class="logo">Logo</span>
+    </div>
+  </div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const tel = params.get('tel');
+  const jmeno = params.get('jmeno');
+
+  if (jmeno) {
+    document.getElementById('jmeno-text').textContent = 'k ' + jmeno;
+  }
+
+  const callLink = document.getElementById('call-link');
+  const callText = document.getElementById('call-text');
+
+  if (tel) {
+    callLink.href = 'tel:' + tel;
+    callText.textContent = 'Klepněte a zavolejte ' + tel;
+  } else {
+    callLink.removeAttribute('href');
+    callLink.style.pointerEvents = 'none';
+    callText.textContent = 'Tag ještě nemá přiřazený kontakt';
+    document.querySelector('.lead').textContent =
+      'Tento tag ještě nemá přiřazený kontakt.';
+  }
+</script>
+
+</body>
+</html>
