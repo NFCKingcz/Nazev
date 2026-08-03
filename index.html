@@ -52,6 +52,31 @@
     text-align:center;
     box-shadow:0 1px 2px rgba(28,22,16,0.04), 0 12px 32px rgba(28,22,16,0.07);
   }
+  .lang-switch{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+    margin-bottom:26px;
+  }
+  .lang-switch button{
+    border:1.5px solid var(--border);
+    background:var(--surface);
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:13px;
+    letter-spacing:0.01em;
+    color:var(--ink);
+    padding:8px 16px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .lang-switch button.active{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:#fff;
+  }
   h1{
     font-family:'Space Grotesk',sans-serif;
     font-weight:700;
@@ -60,7 +85,7 @@
     letter-spacing:-0.01em;
     margin-bottom:20px;
   }
-  h1 span{color:var(--accent);}
+  h1 #jmeno-text{color:var(--accent);}
   .lead{
     font-size:15px;
     line-height:1.55;
@@ -142,8 +167,17 @@
   <canvas id="confetti-canvas"></canvas>
 
   <div class="card">
-    <h1>Ahoj, jsem <span id="jmeno-text">někdo</span>.</h1>
-    <p class="lead">
+    <div class="lang-switch" role="group" aria-label="Jazyk / Language">
+      <button type="button" id="lang-cs" class="active" aria-pressed="true">Čeština</button>
+      <button type="button" id="lang-en" aria-pressed="false">English</button>
+      <button type="button" id="lang-de" aria-pressed="false">Deutsch</button>
+      <button type="button" id="lang-fr" aria-pressed="false">Français</button>
+      <button type="button" id="lang-es" aria-pressed="false">Español</button>
+      <button type="button" id="lang-pl" aria-pressed="false">Polski</button>
+    </div>
+
+    <h1><span id="greeting-text">Ahoj, jsem</span> <span id="jmeno-text">někdo</span>.</h1>
+    <p class="lead" id="lead-text">
       Ztratil/a jsem se. Prosím, pomozte mi,
       stačí jedno zavolání.
     </p>
@@ -155,18 +189,77 @@
       <span id="call-text">Zavolat</span>
     </a>
 
-    <p class="claim">Každá minuta se počítá.</p>
+    <p class="claim" id="claim-text">Každá minuta se počítá.</p>
 
     <div class="divider"></div>
 
-    <p class="fallback-label">Nejde se dovolat?</p>
-    <a class="fallback-btn" href="tel:112">Zavolat linku 112</a>
+    <p class="fallback-label" id="fallback-label-text">Nejde se dovolat?</p>
+    <a class="fallback-btn" href="tel:112" id="fallback-btn-text">Zavolat linku 112</a>
 
     <div class="footer">nfcking</div>
   </div>
 
 <script>
-  // --- Obsah podle URL parametrů ---
+  // --- Překlady ---
+  const translations = {
+    cs: {
+      greeting: 'Ahoj, jsem',
+      lead: 'Ztratil/a jsem se. Prosím, pomozte mi, stačí jedno zavolání.',
+      callPrefix: 'Zavolat ',
+      noContact: 'Kontakt zatím nenastaven',
+      claim: 'Každá minuta se počítá.',
+      fallbackLabel: 'Nejde se dovolat?',
+      fallbackBtn: 'Zavolat linku 112'
+    },
+    en: {
+      greeting: "Hi, I'm",
+      lead: "I got lost. Please help me, just one phone call.",
+      callPrefix: 'Call ',
+      noContact: 'Contact not set yet',
+      claim: 'Every minute counts.',
+      fallbackLabel: "Can't get through?",
+      fallbackBtn: 'Call emergency line 112'
+    },
+    de: {
+      greeting: 'Hallo, ich bin',
+      lead: 'Ich habe mich verirrt. Bitte helfen Sie mir, ein Anruf genügt.',
+      callPrefix: 'Anrufen ',
+      noContact: 'Kontakt noch nicht festgelegt',
+      claim: 'Jede Minute zählt.',
+      fallbackLabel: 'Erreichen Sie niemanden?',
+      fallbackBtn: 'Notruf 112 anrufen'
+    },
+    fr: {
+      greeting: 'Bonjour, je suis',
+      lead: "Je me suis perdu(e). Aidez-moi, un simple appel suffit.",
+      callPrefix: 'Appeler ',
+      noContact: 'Contact non renseigné',
+      claim: 'Chaque minute compte.',
+      fallbackLabel: "Impossible de joindre ?",
+      fallbackBtn: "Appeler le 112"
+    },
+    es: {
+      greeting: 'Hola, soy',
+      lead: 'Me he perdido. Por favor, ayúdame, basta con una llamada.',
+      callPrefix: 'Llamar ',
+      noContact: 'Contacto aún no configurado',
+      claim: 'Cada minuto cuenta.',
+      fallbackLabel: '¿No consigue contactar?',
+      fallbackBtn: 'Llamar al 112'
+    },
+    pl: {
+      greeting: 'Cześć, jestem',
+      lead: 'Zgubiłem/am się. Proszę, pomóż mi, wystarczy jeden telefon.',
+      callPrefix: 'Zadzwoń ',
+      noContact: 'Kontakt jeszcze nie ustawiony',
+      claim: 'Liczy się każda minuta.',
+      fallbackLabel: 'Nie możesz się dodzwonić?',
+      fallbackBtn: 'Zadzwoń na 112'
+    }
+  };
+
+  const langCodes = ['cs', 'en', 'de', 'fr', 'es', 'pl'];
+
   const params = new URLSearchParams(window.location.search);
   const tel = params.get('tel');
   const jmeno = params.get('jmeno');
@@ -180,12 +273,52 @@
 
   if (tel) {
     callLink.href = 'tel:' + tel;
-    callText.textContent = 'Zavolat ' + tel;
   } else {
     callLink.removeAttribute('href');
     callLink.style.pointerEvents = 'none';
-    callText.textContent = 'Kontakt zatím nenastaven';
   }
+
+  function applyLanguage(lang) {
+    const t = translations[lang] || translations.cs;
+
+    document.getElementById('greeting-text').textContent = t.greeting;
+    document.getElementById('lead-text').textContent = t.lead;
+    document.getElementById('claim-text').textContent = t.claim;
+    document.getElementById('fallback-label-text').textContent = t.fallbackLabel;
+    document.getElementById('fallback-btn-text').textContent = t.fallbackBtn;
+    callText.textContent = tel ? t.callPrefix + tel : t.noContact;
+
+    document.documentElement.lang = lang;
+
+    langCodes.forEach(code => {
+      const btn = document.getElementById('lang-' + code);
+      const isActive = code === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive);
+    });
+  }
+
+  langCodes.forEach(code => {
+    document.getElementById('lang-' + code)
+      .addEventListener('click', () => applyLanguage(code));
+  });
+
+  const jazykParam = params.get('jazyk');
+
+  function detectBrowserLang() {
+    const browserLangs = navigator.languages && navigator.languages.length
+      ? navigator.languages
+      : [navigator.language || 'cs'];
+
+    for (const bl of browserLangs) {
+      const code = bl.toLowerCase().split('-')[0];
+      if (langCodes.includes(code)) return code;
+    }
+    return 'cs';
+  }
+
+  const initialLang = langCodes.includes(jazykParam) ? jazykParam : detectBrowserLang();
+  applyLanguage(initialLang);
 
   // --- Konfety při načtení stránky, výrazný barevný "burst" ---
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
