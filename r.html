@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Přesměrování</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" crossorigin="anonymous"></script>
+<style>
+  :root{
+    --bg:#FBF8F4; --surface:#FFFFFF; --ink:#1C1610; --muted:#6B6259;
+    --accent:#E8621A; --accent-soft:#FBE3D3; --border:#EFE8DE; --radius:24px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg); color:var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    min-height:100vh;padding:24px;-webkit-font-smoothing:antialiased;
+  }
+  .card{
+    width:100%;max-width:400px;background:var(--surface);
+    border-radius:var(--radius);padding:36px 28px;text-align:center;
+    box-shadow:0 1px 2px rgba(28,22,16,0.04),0 12px 32px rgba(28,22,16,0.07);
+  }
+  .spinner{
+    width:36px;height:36px;border-radius:50%;
+    border:3px solid var(--border);border-top-color:var(--accent);
+    margin:0 auto 20px;animation:spin 0.8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  h1{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:18px;margin-bottom:8px;
+  }
+  p{font-size:14px;color:var(--muted);line-height:1.5;}
+  .manual-link{
+    display:none;margin-top:18px;padding:12px 18px;
+    background:var(--ink);color:#fff;text-decoration:none;
+    border-radius:12px;font-weight:600;font-size:14px;
+  }
+  .hidden{display:none;}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="spinner" id="spinner"></div>
+    <h1 id="title">Načítám...</h1>
+    <p id="message">Chvilku strpení, hledáme správnou adresu.</p>
+    <a class="manual-link" id="manualLink" href="#">Pokračovat ručně</a>
+  </div>
+
+<script>
+  // Sem patří odkaz na publikovaný Google Sheet ve formátu CSV
+  const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSHtREcxQo7n2dHwQSvDvNQgZ2gfVJPs8k_FCZZphFI72kD17N191BOOsEd4Uu3o-3Uw8eqpabmEKAB/pub?gid=0&single=true&output=csv";
+
+  const params = new URLSearchParams(window.location.search);
+  const id = (params.get('id') || '').trim();
+
+  const spinner = document.getElementById('spinner');
+  const title = document.getElementById('title');
+  const message = document.getElementById('message');
+  const manualLink = document.getElementById('manualLink');
+
+  function showError(msg) {
+    spinner.classList.add('hidden');
+    title.textContent = 'Nepodařilo se najít cíl';
+    message.textContent = msg;
+  }
+
+  function showSuccess(url) {
+    title.textContent = 'Přesměrovávám...';
+    message.textContent = 'Pokud se stránka neotevře sama, klikněte níže.';
+    manualLink.href = url;
+    manualLink.style.display = 'inline-block';
+    window.location.href = url;
+  }
+
+  if (!id) {
+    showError('V odkazu chybí sériové číslo (parametr ?id=...).');
+  } else {
+    fetch(SHEET_CSV_URL)
+      .then(res => {
+        if (!res.ok) throw new Error('Tabulku se nepodařilo načíst (HTTP ' + res.status + ').');
+        return res.text();
+      })
+      .then(csvText => {
+        const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+        const rows = parsed.data;
+
+        const match = rows.find(row => {
+          const rowId = (row.id || '').toString().trim();
+          return rowId === id;
+        });
+
+        if (!match || !match.url) {
+          showError('Sériové číslo "' + id + '" zatím nemá nastavenou cílovou adresu.');
+          return;
+        }
+
+        showSuccess(match.url.trim());
+      })
+      .catch(err => {
+        showError('Chyba při čtení dat: ' + err.message);
+      });
+  }
+</script>
+</body>
+</html>
