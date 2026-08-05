@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nalezeno</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#FBF8F4;
@@ -17,11 +14,13 @@
     --accent-soft:#FBE3D3;
     --border:#EFE8DE;
     --radius:24px;
+    --font-display:"Helvetica Neue", Helvetica, Arial, sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html,body{height:100%;}
   body{
-    font-family:'Inter',sans-serif;
+    font-family:var(--font-display);
+    font-weight:300;
     background:var(--bg);
     color:var(--ink);
     display:flex;
@@ -62,9 +61,8 @@
   .lang-switch button{
     border:1.5px solid var(--border);
     background:var(--surface);
-    font-family:'Inter',sans-serif;
-    font-weight:600;
-    font-size:13px;
+    font-family:var(--font-display);
+    font-weight:500;
     letter-spacing:0.01em;
     color:var(--ink);
     padding:8px 16px;
@@ -78,8 +76,8 @@
     color:#fff;
   }
   h1{
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
+    font-family:var(--font-display);
+    font-weight:900;
     font-size:28px;
     line-height:1.2;
     letter-spacing:-0.01em;
@@ -104,8 +102,8 @@
     color:#fff;
     text-decoration:none;
     border-radius:16px;
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:700;
+    font-family:var(--font-display);
+    font-weight:500;
     font-size:18px;
     letter-spacing:0.01em;
     transition:transform 0.15s ease;
@@ -115,8 +113,8 @@
   .call-btn:focus-visible{outline:3px solid var(--accent-soft);outline-offset:3px;}
   .claim{
     margin-top:20px;
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:600;
+    font-family:var(--font-display);
+    font-weight:300;
     font-size:14px;
     color:var(--ink);
     letter-spacing:0.01em;
@@ -143,15 +141,15 @@
     text-decoration:none;
     border-radius:14px;
     border:1.5px solid var(--border);
-    font-family:'Inter',sans-serif;
-    font-weight:600;
+    font-family:var(--font-display);
+    font-weight:400;
     font-size:14px;
   }
   .fallback-btn:active{background:var(--bg);}
   .footer{
     margin-top:26px;
-    font-family:'Space Grotesk',sans-serif;
-    font-weight:600;
+    font-family:var(--font-display);
+    font-weight:300;
     font-size:12px;
     letter-spacing:0.02em;
     color:var(--muted);
@@ -204,7 +202,7 @@
   const translations = {
     cs: {
       greeting: 'Ahoj, jsem',
-      lead: 'Ztratil/a jsem se. Prosím, pomozte mi, stačí jedno zavolání.',
+      lead: 'Ztratil/a jsem se. Prosím, pomoz mi, stačí jedno zavolání.',
       callPrefix: 'Zavolat ',
       noContact: 'Kontakt zatím nenastaven',
       claim: 'Každá minuta se počítá.',
@@ -222,16 +220,16 @@
     },
     de: {
       greeting: 'Hallo, ich bin',
-      lead: 'Ich habe mich verirrt. Bitte helfen Sie mir, ein Anruf genügt.',
+      lead: 'Ich habe mich verirrt. Bitte hilf mir, ein Anruf genügt.',
       callPrefix: 'Anrufen ',
       noContact: 'Kontakt noch nicht festgelegt',
       claim: 'Jede Minute zählt.',
-      fallbackLabel: 'Erreichen Sie niemanden?',
+      fallbackLabel: 'Erreichst du niemanden?',
       fallbackBtn: 'Notruf 112 anrufen'
     },
     fr: {
       greeting: 'Bonjour, je suis',
-      lead: "Je me suis perdu(e). Aidez-moi, un simple appel suffit.",
+      lead: "Je me suis perdu(e). Aide-moi, un simple appel suffit.",
       callPrefix: 'Appeler ',
       noContact: 'Contact non renseigné',
       claim: 'Chaque minute compte.',
@@ -244,7 +242,7 @@
       callPrefix: 'Llamar ',
       noContact: 'Contacto aún no configurado',
       claim: 'Cada minuto cuenta.',
-      fallbackLabel: '¿No consigue contactar?',
+      fallbackLabel: '¿No consigues contactar?',
       fallbackBtn: 'Llamar al 112'
     },
     pl: {
