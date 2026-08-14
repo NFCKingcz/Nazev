@@ -597,27 +597,58 @@
     return result;
   }
 
-  const tel = safeDecode(params.get('tel'));
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaPLTiz8qOqi8Anx9mPSs5_etTneNDRXvjCybp2_1Z4b9huqGr0XYS8e_KpEDPsp7M/exec';
+  let currentLang = 'cs';
+
+  let currentTel = safeDecode(params.get('tel'));
   const productId = safeDecode(params.get('id'));
-  const isActivated = !!tel;
 
   const callLink = document.getElementById('call-link');
   const callText = document.getElementById('call-text');
+  const safecardContent = document.getElementById('safecard-content');
+  const welcomeContent = document.getElementById('welcome-content');
+  const idInput = document.getElementById('idInput');
 
-  if (tel) {
-    callLink.href = 'tel:' + tel;
-  } else {
-    callLink.removeAttribute('href');
-    callLink.style.pointerEvents = 'none';
+  function showSafecard(phone) {
+    currentTel = phone;
+    if (phone) {
+      callLink.href = 'tel:' + phone;
+    } else {
+      callLink.removeAttribute('href');
+      callLink.style.pointerEvents = 'none';
+    }
+    safecardContent.style.display = '';
+    welcomeContent.style.display = 'none';
+    applyLanguage(currentLang);
   }
 
-  document.getElementById('safecard-content').style.display = isActivated ? '' : 'none';
-  document.getElementById('welcome-content').style.display = isActivated ? 'none' : '';
+  function showWelcome() {
+    safecardContent.style.display = 'none';
+    welcomeContent.style.display = '';
+    if (productId) {
+      idInput.value = productId;
+      document.getElementById('id-field-group').style.display = 'none';
+    }
+  }
 
-  const idInput = document.getElementById('idInput');
-  if (productId) {
-    idInput.value = productId;
-    document.getElementById('id-field-group').style.display = 'none';
+  if (currentTel) {
+    // starší/ručně sdílený odkaz s telefonem přímo v URL
+    showSafecard(currentTel);
+  } else if (productId) {
+    // tag má napořád stejnou tovární adresu, aktuální stav se ověřuje živě podle id
+    showWelcome();
+    fetch(SCRIPT_URL + '?action=status&id=' + encodeURIComponent(productId))
+      .then(function (res) { return res.text(); })
+      .then(function (text) {
+        let data;
+        try { data = JSON.parse(text); } catch (e) { return; }
+        if (data.success && data.activated) {
+          showSafecard(data.tel || '');
+        }
+      })
+      .catch(function () { /* necháme zobrazený aktivační formulář */ });
+  } else {
+    showWelcome();
   }
 
   function applyLanguage(lang) {
@@ -628,7 +659,7 @@
     document.getElementById('claim-text').textContent = t.claim;
     document.getElementById('fallback-label-text').textContent = t.fallbackLabel;
     document.getElementById('fallback-btn-text').textContent = t.fallbackBtn;
-    callText.textContent = tel ? t.callPrefix + tel : t.noContact;
+    callText.textContent = currentTel ? t.callPrefix + currentTel : t.noContact;
 
     document.getElementById('welcome-title-text').textContent = t.welcomeTitle;
     document.getElementById('welcome-lead-text').textContent = t.welcomeLead;
@@ -654,8 +685,6 @@
       btn.classList.toggle('active', code === lang);
     });
   }
-
-  let currentLang = 'cs';
 
   const flagMap = { cs: '🇨🇿', en: '🇬🇧', de: '🇩🇪', fr: '🇫🇷', es: '🇪🇸', pl: '🇵🇱' };
 
@@ -707,7 +736,6 @@
   applyLanguage(initialLang);
 
   // --- Aktivace produktu ---
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaPLTiz8qOqi8Anx9mPSs5_etTneNDRXvjCybp2_1Z4b9huqGr0XYS8e_KpEDPsp7M/exec';
 
   const telInput = document.getElementById('telInput');
   const submitBtn = document.getElementById('submitBtn');
