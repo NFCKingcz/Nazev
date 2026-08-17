@@ -243,27 +243,29 @@
     color:#3A342C;
     margin-bottom:12px;
   }
-  .feedback-btn{
-    display:inline-block;
-    background:none;
-    border:none;
-    font-family:var(--font-display);
-    font-weight:700;
-    font-size:13.5px;
+  .backup-text-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:16px;
+    font-size:15px;
+    font-weight:600;
     color:var(--ink);
-    cursor:pointer;
-    padding:6px 4px;
-    margin-top:20px;
     text-decoration:underline;
     text-decoration-color:var(--border);
     text-underline-offset:3px;
   }
-  .feedback-btn:active{opacity:0.6;}
+  .backup-text-link svg{opacity:0.7;}
+  .backup-text-link:active{opacity:0.6;}
+  #feedback-btn{
+    border:none;
+    cursor:pointer;
+  }
   .feedback-thanks{
     font-size:13.5px;
     font-weight:700;
     color:#1F5C33;
-    margin-top:20px;
+    margin-top:14px;
   }
   .call-btn-secondary{
     display:flex;
@@ -450,7 +452,7 @@
 
     <div id="safecard-content" style="display:none;">
       <h1 id="title-text">Možná potřebuji pomoc.</h1>
-      <p class="lead" id="lead-text">Stisknutím tlačítka se spojíte s hlavním kontaktem.</p>
+      <p class="lead" id="lead-text">Stisknutím tlačítka se spojíte s blízkou osobou.</p>
 
       <a id="call-link" class="call-btn" href="#">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -459,24 +461,23 @@
         <span id="call-text">Zavolat</span>
       </a>
 
-      <div id="contact-group-2" style="display:none;">
-        <div class="divider"></div>
-        <p class="section-label" id="backup-label-text">Záložní kontakt</p>
-        <a id="call-link-2" class="call-btn-secondary" href="#">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6.6 10.8C8 13.6 10.4 16 13.2 17.4L15.4 15.2C15.7 14.9 16.1 14.8 16.5 15C17.8 15.4 19.1 15.6 20.5 15.6C21.1 15.6 21.5 16 21.5 16.6V20.5C21.5 21.1 21.1 21.5 20.5 21.5C10.8 21.5 3 13.7 3 4C3 3.4 3.4 3 4 3H7.9C8.5 3 8.9 3.4 8.9 4C8.9 5.4 9.1 6.7 9.5 8C9.6 8.4 9.5 8.8 9.3 9.1L7.1 11.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span id="call-text-2">Zavolat</span>
-        </a>
-      </div>
-
-      <button type="button" class="feedback-btn" id="feedback-btn">Pomohlo vám tohle?</button>
-      <p class="feedback-thanks" id="feedback-thanks-text" style="display:none;">Děkujeme za zpětnou vazbu.</p>
+      <a id="call-link-2" class="backup-text-link" href="#" style="display:none;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.6 10.8C8 13.6 10.4 16 13.2 17.4L15.4 15.2C15.7 14.9 16.1 14.8 16.5 15C17.8 15.4 19.1 15.6 20.5 15.6C21.1 15.6 21.5 16 21.5 16.6V20.5C21.5 21.1 21.1 21.5 20.5 21.5C10.8 21.5 3 13.7 3 4C3 3.4 3.4 3 4 3H7.9C8.5 3 8.9 3.4 8.9 4C8.9 5.4 9.1 6.7 9.5 8C9.6 8.4 9.5 8.8 9.3 9.1L7.1 11.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span id="call-text-2"></span>
+      </a>
 
       <div class="divider"></div>
 
       <p class="fallback-label" id="fallback-label-text">Vypadá to vážně?</p>
       <a class="fallback-btn" href="tel:112" id="fallback-btn-text">Zavolat linku 112</a>
+
+      <div class="divider"></div>
+
+      <p class="section-label" id="feedback-heading-text">Zpětná vazba</p>
+      <button type="button" class="call-btn-secondary" id="feedback-btn">Využil/a jsem pomoc ❤️</button>
+      <p class="feedback-thanks" id="feedback-thanks-text" style="display:none;">Děkujeme za zpětnou vazbu.</p>
     </div>
 
     <div id="welcome-content" style="display:none;">
@@ -538,11 +539,12 @@
       loadingText: 'Chviličku strpení, prosím.',
       footerText: '© 2026 Hopely.cz. Všechna práva vyhrazena.',
       title: 'Možná potřebuji pomoc.',
-      lead: 'Stisknutím tlačítka se spojíte s hlavním kontaktem.',
+      lead: 'Stisknutím tlačítka se spojíte s blízkou osobou.',
       callPrefix: 'Zavolat ',
       backupLabel: 'Záložní kontakt',
       noContact: 'Kontakt zatím nenastaven',
-      feedbackQuestion: 'Pomohlo vám tohle?',
+      feedbackHeading: 'Zpětná vazba',
+      feedbackBtnText: 'Využil/a jsem pomoc ❤️',
       feedbackThanks: 'Děkujeme za zpětnou vazbu.',
       fallbackLabel: 'Vypadá to vážně?',
       fallbackBtn: 'Zavolat linku 112',
@@ -573,11 +575,12 @@
       loadingText: 'One moment, please.',
       footerText: '© 2026 Hopely.cz. All rights reserved.',
       title: 'I might need help.',
-      lead: 'Press the button to reach the primary contact.',
+      lead: 'Press the button to reach someone close to me.',
       callPrefix: 'Call ',
       backupLabel: 'Backup contact',
       noContact: 'Contact not set yet',
-      feedbackQuestion: 'Did this help?',
+      feedbackHeading: 'Feedback',
+      feedbackBtnText: 'I got the help I needed ❤️',
       feedbackThanks: 'Thanks for the feedback.',
       fallbackLabel: 'Does this look serious?',
       fallbackBtn: 'Call emergency line 112',
@@ -608,11 +611,12 @@
       loadingText: 'Einen Moment, bitte.',
       footerText: '© 2026 Hopely.cz. Alle Rechte vorbehalten.',
       title: 'Vielleicht brauche ich Hilfe.',
-      lead: 'Drücken Sie die Schaltfläche, um den Hauptkontakt zu erreichen.',
+      lead: 'Drücken Sie die Schaltfläche, um eine nahestehende Person zu erreichen.',
       callPrefix: 'Anrufen ',
       backupLabel: 'Ersatzkontakt',
       noContact: 'Kontakt noch nicht festgelegt',
-      feedbackQuestion: 'Hat Ihnen das geholfen?',
+      feedbackHeading: 'Feedback',
+      feedbackBtnText: 'Mir wurde geholfen ❤️',
       feedbackThanks: 'Danke für Ihr Feedback.',
       fallbackLabel: 'Sieht das ernst aus?',
       fallbackBtn: 'Notruf 112 anrufen',
@@ -643,11 +647,12 @@
       loadingText: "Un instant, s'il vous plaît.",
       footerText: '© 2026 Hopely.cz. Tous droits réservés.',
       title: "J'ai peut-être besoin d'aide.",
-      lead: 'Appuyez sur le bouton pour joindre le contact principal.',
+      lead: 'Appuyez sur le bouton pour joindre un proche.',
       callPrefix: 'Appeler ',
       backupLabel: 'Contact de secours',
       noContact: 'Contact non renseigné',
-      feedbackQuestion: 'Est-ce que ça vous a aidé ?',
+      feedbackHeading: 'Retour',
+      feedbackBtnText: "J'ai reçu l'aide dont j'avais besoin ❤️",
       feedbackThanks: 'Merci pour votre retour.',
       fallbackLabel: "Est-ce que ça semble grave ?",
       fallbackBtn: "Appeler le 112",
@@ -678,11 +683,12 @@
       loadingText: 'Un momento, por favor.',
       footerText: '© 2026 Hopely.cz. Todos los derechos reservados.',
       title: 'Puede que necesite ayuda.',
-      lead: 'Pulse el botón para contactar con el contacto principal.',
+      lead: 'Pulse el botón para contactar con alguien cercano.',
       callPrefix: 'Llamar ',
       backupLabel: 'Contacto de respaldo',
       noContact: 'Contacto aún no configurado',
-      feedbackQuestion: '¿Le ha ayudado esto?',
+      feedbackHeading: 'Opinión',
+      feedbackBtnText: 'Recibí la ayuda que necesitaba ❤️',
       feedbackThanks: 'Gracias por su opinión.',
       fallbackLabel: '¿Parece grave?',
       fallbackBtn: 'Llamar al 112',
@@ -713,11 +719,12 @@
       loadingText: 'Chwileczkę, proszę.',
       footerText: '© 2026 Hopely.cz. Wszelkie prawa zastrzeżone.',
       title: 'Może potrzebuję pomocy.',
-      lead: 'Naciśnij przycisk, aby połączyć się z kontaktem głównym.',
+      lead: 'Naciśnij przycisk, aby połączyć się z bliską osobą.',
       callPrefix: 'Zadzwoń ',
       backupLabel: 'Kontakt zapasowy',
       noContact: 'Kontakt jeszcze nie ustawiony',
-      feedbackQuestion: 'Czy to pomogło?',
+      feedbackHeading: 'Informacja zwrotna',
+      feedbackBtnText: 'Skorzystałem/am z pomocy ❤️',
       feedbackThanks: 'Dziękujemy za opinię.',
       fallbackLabel: 'Wygląda to poważnie?',
       fallbackBtn: 'Zadzwoń na 112',
@@ -780,7 +787,6 @@
   const callText = document.getElementById('call-text');
   const callLink2 = document.getElementById('call-link-2');
   const callText2 = document.getElementById('call-text-2');
-  const contactGroup2 = document.getElementById('contact-group-2');
   const safecardContent = document.getElementById('safecard-content');
   const welcomeContent = document.getElementById('welcome-content');
   const idInput = document.getElementById('idInput');
@@ -798,9 +804,9 @@
     }
     if (currentTel2) {
       callLink2.href = 'tel:' + currentTel2;
-      contactGroup2.style.display = '';
+      callLink2.style.display = '';
     } else {
-      contactGroup2.style.display = 'none';
+      callLink2.style.display = 'none';
     }
     statusLoading.style.display = 'none';
     safecardContent.style.display = '';
@@ -855,11 +861,11 @@
     document.getElementById('lead-text').textContent = t.lead;
     document.getElementById('fallback-label-text').textContent = t.fallbackLabel;
     document.getElementById('fallback-btn-text').textContent = t.fallbackBtn;
-    document.getElementById('backup-label-text').textContent = t.backupLabel;
-    document.getElementById('feedback-btn').textContent = t.feedbackQuestion;
+    document.getElementById('feedback-heading-text').textContent = t.feedbackHeading;
+    document.getElementById('feedback-btn').textContent = t.feedbackBtnText;
     document.getElementById('feedback-thanks-text').textContent = t.feedbackThanks;
     callText.textContent = currentTel ? t.callPrefix + currentTel : t.noContact;
-    if (currentTel2) callText2.textContent = t.callPrefix + currentTel2;
+    if (currentTel2) callText2.textContent = t.backupLabel + ': ' + currentTel2;
 
     document.getElementById('welcome-title-text').textContent = t.welcomeTitle;
     document.getElementById('welcome-lead-text').textContent = t.welcomeLead;
