@@ -237,6 +237,32 @@
   }
   .call-btn:active{transform:scale(0.97);}
   .call-btn:focus-visible{outline:3px solid var(--accent-soft);outline-offset:3px;}
+  .contact-label{
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--muted);
+    letter-spacing:0.02em;
+    margin-bottom:8px;
+  }
+  .call-btn-secondary{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    width:100%;
+    padding:14px 20px;
+    background:#F1ECE4;
+    color:var(--ink);
+    text-decoration:none;
+    border-radius:16px;
+    font-family:var(--font-display);
+    font-weight:500;
+    font-size:15.5px;
+    letter-spacing:0.01em;
+  }
+  .call-btn-secondary svg{opacity:0.75;}
+  .call-btn-secondary:active{background:#E9E2D6;}
+  .call-btn-secondary:focus-visible{outline:2px solid var(--border);outline-offset:2px;}
   .claim{
     margin-top:22px;
     font-family:var(--font-display);
@@ -273,11 +299,6 @@
     font-size:14px;
   }
   .fallback-btn:active{background:#FAFAF9;}
-  .fallback-btn.accent-outline{
-    border-color:var(--accent-soft);
-    color:var(--accent);
-  }
-  .fallback-btn.accent-outline:active{background:var(--accent-soft);}
   .footer{
     margin-top:28px;
     display:flex;
@@ -407,9 +428,10 @@
     </div>
 
     <div id="safecard-content" style="display:none;">
-      <h1 id="title-text">Možná mě někdo postrádá.</h1>
+      <h1 id="title-text">Možná potřebuji pomoc.</h1>
       <p class="lead" id="lead-text">Prosím, zavolej.</p>
 
+      <p class="contact-label" id="contact-label-primary">Hlavní kontakt</p>
       <a id="call-link" class="call-btn" href="#">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.6 10.8C8 13.6 10.4 16 13.2 17.4L15.4 15.2C15.7 14.9 16.1 14.8 16.5 15C17.8 15.4 19.1 15.6 20.5 15.6C21.1 15.6 21.5 16 21.5 16.6V20.5C21.5 21.1 21.1 21.5 20.5 21.5C10.8 21.5 3 13.7 3 4C3 3.4 3.4 3 4 3H7.9C8.5 3 8.9 3.4 8.9 4C8.9 5.4 9.1 6.7 9.5 8C9.6 8.4 9.5 8.8 9.3 9.1L7.1 11.3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -417,12 +439,15 @@
         <span id="call-text">Zavolat</span>
       </a>
 
-      <a id="call-link-2" class="fallback-btn accent-outline" href="#" style="display:none; margin-top:12px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6.6 10.8C8 13.6 10.4 16 13.2 17.4L15.4 15.2C15.7 14.9 16.1 14.8 16.5 15C17.8 15.4 19.1 15.6 20.5 15.6C21.1 15.6 21.5 16 21.5 16.6V20.5C21.5 21.1 21.1 21.5 20.5 21.5C10.8 21.5 3 13.7 3 4C3 3.4 3.4 3 4 3H7.9C8.5 3 8.9 3.4 8.9 4C8.9 5.4 9.1 6.7 9.5 8C9.6 8.4 9.5 8.8 9.3 9.1L7.1 11.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span id="call-text-2">Zavolat záložní kontakt</span>
-      </a>
+      <div id="contact-group-2" style="display:none; margin-top:20px;">
+        <p class="contact-label" id="contact-label-secondary">Záložní kontakt</p>
+        <a id="call-link-2" class="call-btn-secondary" href="#">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.6 10.8C8 13.6 10.4 16 13.2 17.4L15.4 15.2C15.7 14.9 16.1 14.8 16.5 15C17.8 15.4 19.1 15.6 20.5 15.6C21.1 15.6 21.5 16 21.5 16.6V20.5C21.5 21.1 21.1 21.5 20.5 21.5C10.8 21.5 3 13.7 3 4C3 3.4 3.4 3 4 3H7.9C8.5 3 8.9 3.4 8.9 4C8.9 5.4 9.1 6.7 9.5 8C9.6 8.4 9.5 8.8 9.3 9.1L7.1 11.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span id="call-text-2">Zavolat</span>
+        </a>
+      </div>
 
       <p class="claim" id="claim-text">Díky, že pomáháš.</p>
 
@@ -490,10 +515,10 @@
     cs: {
       loadingText: 'Chviličku strpení, prosím.',
       footerText: '© 2026 Hopely.cz. Všechna práva vyhrazena.',
-      title: 'Možná mě někdo postrádá.',
+      title: 'Možná potřebuji pomoc.',
       lead: 'Prosím, zavolejte.',
       callPrefix: 'Zavolat ',
-      callSecondPrefix: 'Nebo zavolejte na záložní kontakt ',
+      backupLabel: 'Záložní kontakt',
       noContact: 'Kontakt zatím nenastaven',
       claim: 'Děkujeme, že pomáháte.',
       fallbackLabel: 'Vypadá to vážně?',
@@ -524,10 +549,10 @@
     en: {
       loadingText: 'One moment, please.',
       footerText: '© 2026 Hopely.cz. All rights reserved.',
-      title: 'Someone might be missing me.',
+      title: 'I might need help.',
       lead: 'Please call.',
       callPrefix: 'Call ',
-      callSecondPrefix: 'Or call the backup contact ',
+      backupLabel: 'Backup contact',
       noContact: 'Contact not set yet',
       claim: 'Thank you for helping.',
       fallbackLabel: 'Does this look serious?',
@@ -558,10 +583,10 @@
     de: {
       loadingText: 'Einen Moment, bitte.',
       footerText: '© 2026 Hopely.cz. Alle Rechte vorbehalten.',
-      title: 'Vielleicht vermisst mich jemand.',
+      title: 'Vielleicht brauche ich Hilfe.',
       lead: 'Bitte rufen Sie an.',
       callPrefix: 'Anrufen ',
-      callSecondPrefix: 'Oder rufen Sie den Ersatzkontakt an: ',
+      backupLabel: 'Ersatzkontakt',
       noContact: 'Kontakt noch nicht festgelegt',
       claim: 'Danke, dass Sie helfen.',
       fallbackLabel: 'Sieht das ernst aus?',
@@ -592,10 +617,10 @@
     fr: {
       loadingText: "Un instant, s'il vous plaît.",
       footerText: '© 2026 Hopely.cz. Tous droits réservés.',
-      title: "Quelqu'un me cherche peut-être.",
+      title: "J'ai peut-être besoin d'aide.",
       lead: "S'il vous plaît, appelez.",
       callPrefix: 'Appeler ',
-      callSecondPrefix: 'Ou appelez le contact de secours ',
+      backupLabel: 'Contact de secours',
       noContact: 'Contact non renseigné',
       claim: "Merci de votre aide.",
       fallbackLabel: "Est-ce que ça semble grave ?",
@@ -626,10 +651,10 @@
     es: {
       loadingText: 'Un momento, por favor.',
       footerText: '© 2026 Hopely.cz. Todos los derechos reservados.',
-      title: 'Puede que alguien me eche de menos.',
+      title: 'Puede que necesite ayuda.',
       lead: 'Por favor, llame.',
       callPrefix: 'Llamar ',
-      callSecondPrefix: 'O llame al contacto de respaldo ',
+      backupLabel: 'Contacto de respaldo',
       noContact: 'Contacto aún no configurado',
       claim: 'Gracias por ayudar.',
       fallbackLabel: '¿Parece grave?',
@@ -660,10 +685,10 @@
     pl: {
       loadingText: 'Chwileczkę, proszę.',
       footerText: '© 2026 Hopely.cz. Wszelkie prawa zastrzeżone.',
-      title: 'Może ktoś za mną tęskni.',
+      title: 'Może potrzebuję pomocy.',
       lead: 'Proszę zadzwonić.',
       callPrefix: 'Zadzwoń ',
-      callSecondPrefix: 'Albo zadzwońcie na kontakt zapasowy ',
+      backupLabel: 'Kontakt zapasowy',
       noContact: 'Kontakt jeszcze nie ustawiony',
       claim: 'Dziękujemy za pomoc.',
       fallbackLabel: 'Wygląda to poważnie?',
@@ -727,6 +752,7 @@
   const callText = document.getElementById('call-text');
   const callLink2 = document.getElementById('call-link-2');
   const callText2 = document.getElementById('call-text-2');
+  const contactGroup2 = document.getElementById('contact-group-2');
   const safecardContent = document.getElementById('safecard-content');
   const welcomeContent = document.getElementById('welcome-content');
   const idInput = document.getElementById('idInput');
@@ -744,9 +770,9 @@
     }
     if (currentTel2) {
       callLink2.href = 'tel:' + currentTel2;
-      callLink2.style.display = '';
+      contactGroup2.style.display = '';
     } else {
-      callLink2.style.display = 'none';
+      contactGroup2.style.display = 'none';
     }
     statusLoading.style.display = 'none';
     safecardContent.style.display = '';
@@ -802,8 +828,10 @@
     document.getElementById('claim-text').textContent = t.claim;
     document.getElementById('fallback-label-text').textContent = t.fallbackLabel;
     document.getElementById('fallback-btn-text').textContent = t.fallbackBtn;
+    document.getElementById('contact-label-primary').textContent = t.labelTel;
+    document.getElementById('contact-label-secondary').textContent = t.backupLabel;
     callText.textContent = currentTel ? t.callPrefix + currentTel : t.noContact;
-    if (currentTel2) callText2.textContent = t.callSecondPrefix + currentTel2;
+    if (currentTel2) callText2.textContent = t.callPrefix + currentTel2;
 
     document.getElementById('welcome-title-text').textContent = t.welcomeTitle;
     document.getElementById('welcome-lead-text').textContent = t.welcomeLead;
