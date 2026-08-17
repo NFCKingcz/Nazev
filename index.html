@@ -251,7 +251,7 @@
     gap:9px;
     width:100%;
     padding:14px 20px;
-    background:#F1ECE4;
+    background:#EFEFEF;
     color:var(--ink);
     text-decoration:none;
     border-radius:16px;
@@ -261,7 +261,7 @@
     letter-spacing:0.01em;
   }
   .call-btn-secondary svg{opacity:0.75;}
-  .call-btn-secondary:active{background:#E9E2D6;}
+  .call-btn-secondary:active{background:#E3E3E3;}
   .call-btn-secondary:focus-visible{outline:2px solid var(--border);outline-offset:2px;}
   .claim{
     margin-top:22px;
@@ -429,7 +429,6 @@
 
     <div id="safecard-content" style="display:none;">
       <h1 id="title-text">Možná potřebuji pomoc.</h1>
-      <p class="lead" id="lead-text">Prosím, zavolej.</p>
 
       <p class="contact-label" id="contact-label-primary">Hlavní kontakt</p>
       <a id="call-link" class="call-btn" href="#">
@@ -448,8 +447,6 @@
           <span id="call-text-2">Zavolat</span>
         </a>
       </div>
-
-      <p class="claim" id="claim-text">Díky, že pomáháš.</p>
 
       <div class="divider"></div>
 
@@ -516,11 +513,9 @@
       loadingText: 'Chviličku strpení, prosím.',
       footerText: '© 2026 Hopely.cz. Všechna práva vyhrazena.',
       title: 'Možná potřebuji pomoc.',
-      lead: 'Prosím, zavolejte.',
       callPrefix: 'Zavolat ',
       backupLabel: 'Záložní kontakt',
       noContact: 'Kontakt zatím nenastaven',
-      claim: 'Děkujeme, že pomáháte.',
       fallbackLabel: 'Vypadá to vážně?',
       fallbackBtn: 'Zavolat linku 112',
       welcomeTitle: 'Aktivace produktu',
@@ -550,11 +545,9 @@
       loadingText: 'One moment, please.',
       footerText: '© 2026 Hopely.cz. All rights reserved.',
       title: 'I might need help.',
-      lead: 'Please call.',
       callPrefix: 'Call ',
       backupLabel: 'Backup contact',
       noContact: 'Contact not set yet',
-      claim: 'Thank you for helping.',
       fallbackLabel: 'Does this look serious?',
       fallbackBtn: 'Call emergency line 112',
       welcomeTitle: 'Activate the product',
@@ -584,11 +577,9 @@
       loadingText: 'Einen Moment, bitte.',
       footerText: '© 2026 Hopely.cz. Alle Rechte vorbehalten.',
       title: 'Vielleicht brauche ich Hilfe.',
-      lead: 'Bitte rufen Sie an.',
       callPrefix: 'Anrufen ',
       backupLabel: 'Ersatzkontakt',
       noContact: 'Kontakt noch nicht festgelegt',
-      claim: 'Danke, dass Sie helfen.',
       fallbackLabel: 'Sieht das ernst aus?',
       fallbackBtn: 'Notruf 112 anrufen',
       welcomeTitle: 'Produktaktivierung',
@@ -618,11 +609,9 @@
       loadingText: "Un instant, s'il vous plaît.",
       footerText: '© 2026 Hopely.cz. Tous droits réservés.',
       title: "J'ai peut-être besoin d'aide.",
-      lead: "S'il vous plaît, appelez.",
       callPrefix: 'Appeler ',
       backupLabel: 'Contact de secours',
       noContact: 'Contact non renseigné',
-      claim: "Merci de votre aide.",
       fallbackLabel: "Est-ce que ça semble grave ?",
       fallbackBtn: "Appeler le 112",
       welcomeTitle: 'Activation du produit',
@@ -652,11 +641,9 @@
       loadingText: 'Un momento, por favor.',
       footerText: '© 2026 Hopely.cz. Todos los derechos reservados.',
       title: 'Puede que necesite ayuda.',
-      lead: 'Por favor, llame.',
       callPrefix: 'Llamar ',
       backupLabel: 'Contacto de respaldo',
       noContact: 'Contacto aún no configurado',
-      claim: 'Gracias por ayudar.',
       fallbackLabel: '¿Parece grave?',
       fallbackBtn: 'Llamar al 112',
       welcomeTitle: 'Activación del producto',
@@ -686,11 +673,9 @@
       loadingText: 'Chwileczkę, proszę.',
       footerText: '© 2026 Hopely.cz. Wszelkie prawa zastrzeżone.',
       title: 'Może potrzebuję pomocy.',
-      lead: 'Proszę zadzwonić.',
       callPrefix: 'Zadzwoń ',
       backupLabel: 'Kontakt zapasowy',
       noContact: 'Kontakt jeszcze nie ustawiony',
-      claim: 'Dziękujemy za pomoc.',
       fallbackLabel: 'Wygląda to poważnie?',
       fallbackBtn: 'Zadzwoń na 112',
       welcomeTitle: 'Aktywacja produktu',
@@ -824,8 +809,6 @@
 
     document.getElementById('loading-text-el').textContent = t.loadingText;
     document.getElementById('title-text').textContent = t.title;
-    document.getElementById('lead-text').textContent = t.lead;
-    document.getElementById('claim-text').textContent = t.claim;
     document.getElementById('fallback-label-text').textContent = t.fallbackLabel;
     document.getElementById('fallback-btn-text').textContent = t.fallbackBtn;
     document.getElementById('contact-label-primary').textContent = t.labelTel;
