@@ -318,6 +318,20 @@
     animation:spin 0.7s linear infinite;
   }
   @keyframes spin{to{transform:rotate(360deg);}}
+  .page-spinner{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    border:3px solid var(--border);
+    border-top-color:var(--accent);
+    display:inline-block;
+    animation:spin 0.7s linear infinite;
+  }
+  .loading-text{
+    margin-top:14px;
+    font-size:13px;
+    color:var(--muted);
+  }
 </style>
 </head>
 <body>
@@ -343,6 +357,11 @@
         <button type="button" id="lang-pl" data-lang="pl" data-flag="🇵🇱" role="menuitem"><span class="flag">🇵🇱</span><span>Polski</span></button>
       </div>
     </div>
+    </div>
+
+    <div id="status-loading" style="display:none; padding:36px 0;">
+      <span class="page-spinner"></span>
+      <p class="loading-text" id="loading-text-el">Načítáme...</p>
     </div>
 
     <div id="safecard-content" style="display:none;">
@@ -406,6 +425,7 @@
   // --- Překlady ---
   const translations = {
     cs: {
+      loadingText: 'Načítáme...',
       title: 'Možná mě někdo postrádá.',
       lead: 'Prosím, zavolejte.',
       callPrefix: 'Zavolat ',
@@ -434,6 +454,7 @@
       errConnection: 'Nepodařilo se spojit se serverem. Zkontrolujte připojení a zkuste to znovu.'
     },
     en: {
+      loadingText: 'Loading...',
       title: 'Someone might be missing me.',
       lead: 'Please call.',
       callPrefix: 'Call ',
@@ -462,6 +483,7 @@
       errConnection: 'Could not connect to the server. Please check your connection and try again.'
     },
     de: {
+      loadingText: 'Wird geladen...',
       title: 'Vielleicht vermisst mich jemand.',
       lead: 'Bitte rufen Sie an.',
       callPrefix: 'Anrufen ',
@@ -490,6 +512,7 @@
       errConnection: 'Verbindung zum Server fehlgeschlagen. Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.'
     },
     fr: {
+      loadingText: 'Chargement...',
       title: "Quelqu'un me cherche peut-être.",
       lead: "S'il vous plaît, appelez.",
       callPrefix: 'Appeler ',
@@ -518,6 +541,7 @@
       errConnection: 'Impossible de se connecter au serveur. Veuillez vérifier votre connexion et réessayer.'
     },
     es: {
+      loadingText: 'Cargando...',
       title: 'Puede que alguien me eche de menos.',
       lead: 'Por favor, llame.',
       callPrefix: 'Llamar ',
@@ -546,6 +570,7 @@
       errConnection: 'No se pudo conectar con el servidor. Compruebe su conexión e inténtelo de nuevo.'
     },
     pl: {
+      loadingText: 'Ładowanie...',
       title: 'Może ktoś za mną tęskni.',
       lead: 'Proszę zadzwonić.',
       callPrefix: 'Zadzwoń ',
@@ -609,6 +634,8 @@
   const welcomeContent = document.getElementById('welcome-content');
   const idInput = document.getElementById('idInput');
 
+  const statusLoading = document.getElementById('status-loading');
+
   function showSafecard(phone) {
     currentTel = phone;
     if (phone) {
@@ -617,12 +644,14 @@
       callLink.removeAttribute('href');
       callLink.style.pointerEvents = 'none';
     }
+    statusLoading.style.display = 'none';
     safecardContent.style.display = '';
     welcomeContent.style.display = 'none';
     applyLanguage(currentLang);
   }
 
   function showWelcome() {
+    statusLoading.style.display = 'none';
     safecardContent.style.display = 'none';
     welcomeContent.style.display = '';
     if (productId) {
@@ -631,22 +660,31 @@
     }
   }
 
+  function showLoading() {
+    safecardContent.style.display = 'none';
+    welcomeContent.style.display = 'none';
+    statusLoading.style.display = 'block';
+  }
+
   if (currentTel) {
     // starší/ručně sdílený odkaz s telefonem přímo v URL
     showSafecard(currentTel);
   } else if (productId) {
-    // tag má napořád stejnou tovární adresu, aktuální stav se ověřuje živě podle id
-    showWelcome();
+    // tag má napořád stejnou tovární adresu, aktuální stav se ověřuje živě podle id,
+    // dokud nevíme, jak to dopadlo, ukážeme jen neutrální načítání (ne rovnou formulář)
+    showLoading();
     fetch(SCRIPT_URL + '?action=status&id=' + encodeURIComponent(productId))
       .then(function (res) { return res.text(); })
       .then(function (text) {
         let data;
-        try { data = JSON.parse(text); } catch (e) { return; }
-        if (data.success && data.activated) {
+        try { data = JSON.parse(text); } catch (e) { data = null; }
+        if (data && data.success && data.activated) {
           showSafecard(data.tel || '');
+        } else {
+          showWelcome();
         }
       })
-      .catch(function () { /* necháme zobrazený aktivační formulář */ });
+      .catch(function () { showWelcome(); });
   } else {
     showWelcome();
   }
@@ -654,6 +692,7 @@
   function applyLanguage(lang) {
     const t = translations[lang] || translations.cs;
 
+    document.getElementById('loading-text-el').textContent = t.loadingText;
     document.getElementById('title-text').textContent = t.title;
     document.getElementById('lead-text').textContent = t.lead;
     document.getElementById('claim-text').textContent = t.claim;
