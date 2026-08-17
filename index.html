@@ -45,9 +45,9 @@
     box-shadow:0 1px 2px rgba(28,22,16,0.02), 0 12px 32px rgba(28,22,16,0.04);
   }
   .card-header{
-    display:flex;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
     align-items:center;
-    justify-content:space-between;
     gap:12px;
     margin-bottom:28px;
   }
@@ -56,11 +56,14 @@
     width:auto;
     max-width:110px;
     height:auto;
-    margin:0;
+    margin:0 auto;
+    grid-column:2;
   }
   .lang-dropdown{
     position:relative;
     z-index:2;
+    grid-column:3;
+    justify-self:end;
     text-align:left;
   }
   .lang-toggle{
@@ -487,7 +490,7 @@
   // --- Překlady ---
   const translations = {
     cs: {
-      loadingText: 'Chviličku, hledáme vás.',
+      loadingText: 'Chviličku strpení, prosím.',
       footerText: '© 2026 Hopely.cz. Všechna práva vyhrazena.',
       title: 'Možná mě někdo postrádá.',
       lead: 'Prosím, zavolejte.',
@@ -521,7 +524,7 @@
       errConnection: 'Nepodařilo se spojit se serverem. Zkontrolujte připojení a zkuste to znovu.'
     },
     en: {
-      loadingText: "Just a moment, we're looking for you.",
+      loadingText: 'One moment, please.',
       footerText: '© 2026 Hopely.cz. All rights reserved.',
       title: 'Someone might be missing me.',
       lead: 'Please call.',
@@ -555,7 +558,7 @@
       errConnection: 'Could not connect to the server. Please check your connection and try again.'
     },
     de: {
-      loadingText: 'Einen Moment, wir suchen Sie.',
+      loadingText: 'Einen Moment, bitte.',
       footerText: '© 2026 Hopely.cz. Alle Rechte vorbehalten.',
       title: 'Vielleicht vermisst mich jemand.',
       lead: 'Bitte rufen Sie an.',
@@ -589,7 +592,7 @@
       errConnection: 'Verbindung zum Server fehlgeschlagen. Bitte überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.'
     },
     fr: {
-      loadingText: 'Un instant, on vous cherche.',
+      loadingText: "Un instant, s'il vous plaît.",
       footerText: '© 2026 Hopely.cz. Tous droits réservés.',
       title: "Quelqu'un me cherche peut-être.",
       lead: "S'il vous plaît, appelez.",
@@ -623,7 +626,7 @@
       errConnection: 'Impossible de se connecter au serveur. Veuillez vérifier votre connexion et réessayer.'
     },
     es: {
-      loadingText: 'Un momento, le estamos buscando.',
+      loadingText: 'Un momento, por favor.',
       footerText: '© 2026 Hopely.cz. Todos los derechos reservados.',
       title: 'Puede que alguien me eche de menos.',
       lead: 'Por favor, llame.',
@@ -657,7 +660,7 @@
       errConnection: 'No se pudo conectar con el servidor. Compruebe su conexión e inténtelo de nuevo.'
     },
     pl: {
-      loadingText: 'Chwileczkę, szukamy Państwa.',
+      loadingText: 'Chwileczkę, proszę.',
       footerText: '© 2026 Hopely.cz. Wszelkie prawa zastrzeżone.',
       title: 'Może ktoś za mną tęskni.',
       lead: 'Proszę zadzwonić.',
