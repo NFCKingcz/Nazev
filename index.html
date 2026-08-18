@@ -24,8 +24,6 @@
     background:var(--bg);
     color:var(--ink);
     display:flex;
-    align-items:center;
-    justify-content:center;
     min-height:100vh;
     padding:24px;
     -webkit-font-smoothing:antialiased;
@@ -37,6 +35,7 @@
     z-index:1;
     width:100%;
     max-width:420px;
+    margin:auto;
     background:var(--surface);
     border:1px solid var(--border);
     border-radius:var(--radius);
@@ -223,8 +222,8 @@
     background:#FAF7F3;
     border-radius:14px;
   }
-  .person-name{
-    font-size:15px;
+  .person-about-label{
+    font-size:12.5px;
     font-weight:700;
     color:#3A342C;
     margin-bottom:4px;
@@ -233,7 +232,6 @@
     font-size:13.5px;
     line-height:1.5;
     color:var(--muted);
-    font-style:italic;
   }
   .call-btn{
     display:flex;
@@ -504,7 +502,7 @@
       <p class="lead" id="lead-text">Stisknutím tlačítka se spojíte s blízkou osobou.</p>
 
       <div id="person-info" style="display:none;">
-        <p class="person-name" id="person-name-text"></p>
+        <p class="person-about-label" id="person-about-label-text">O mně:</p>
         <p class="person-about" id="person-about-text"></p>
       </div>
 
@@ -611,6 +609,8 @@
       loadingText: 'Chviličku strpení, prosím.',
       footerText: '© 2026 Hopely.cz. Všechna práva vyhrazena.',
       title: 'Možná potřebuji pomoc.',
+      titleWithName: 'Jsem {name} a možná potřebuji pomoc.',
+      aboutLabel: 'O mně:',
       lead: 'Stisknutím tlačítka se spojíte s blízkou osobou.',
       callPrefix: 'Zavolat ',
       backupLabel: 'Záložní kontakt',
@@ -658,6 +658,8 @@
       loadingText: 'One moment, please.',
       footerText: '© 2026 Hopely.cz. All rights reserved.',
       title: 'I might need help.',
+      titleWithName: "I'm {name} and I might need help.",
+      aboutLabel: 'About me:',
       lead: 'Press the button to reach someone close to me.',
       callPrefix: 'Call ',
       backupLabel: 'Backup contact',
@@ -705,6 +707,8 @@
       loadingText: 'Einen Moment, bitte.',
       footerText: '© 2026 Hopely.cz. Alle Rechte vorbehalten.',
       title: 'Vielleicht brauche ich Hilfe.',
+      titleWithName: 'Ich bin {name} und brauche vielleicht Hilfe.',
+      aboutLabel: 'Über mich:',
       lead: 'Drücken Sie die Schaltfläche, um eine nahestehende Person zu erreichen.',
       callPrefix: 'Anrufen ',
       backupLabel: 'Ersatzkontakt',
@@ -752,6 +756,8 @@
       loadingText: "Un instant, s'il vous plaît.",
       footerText: '© 2026 Hopely.cz. Tous droits réservés.',
       title: "J'ai peut-être besoin d'aide.",
+      titleWithName: "Je m'appelle {name} et j'ai peut-être besoin d'aide.",
+      aboutLabel: 'À propos de moi :',
       lead: 'Appuyez sur le bouton pour joindre un proche.',
       callPrefix: 'Appeler ',
       backupLabel: 'Contact de secours',
@@ -799,6 +805,8 @@
       loadingText: 'Un momento, por favor.',
       footerText: '© 2026 Hopely.cz. Todos los derechos reservados.',
       title: 'Puede que necesite ayuda.',
+      titleWithName: 'Soy {name} y puede que necesite ayuda.',
+      aboutLabel: 'Sobre mí:',
       lead: 'Pulse el botón para contactar con alguien cercano.',
       callPrefix: 'Llamar ',
       backupLabel: 'Contacto de respaldo',
@@ -846,6 +854,8 @@
       loadingText: 'Chwileczkę, proszę.',
       footerText: '© 2026 Hopely.cz. Wszelkie prawa zastrzeżone.',
       title: 'Może potrzebuję pomocy.',
+      titleWithName: 'Jestem {name} i może potrzebuję pomocy.',
+      aboutLabel: 'O mnie:',
       lead: 'Naciśnij przycisk, aby połączyć się z bliską osobą.',
       callPrefix: 'Zadzwoń ',
       backupLabel: 'Kontakt zapasowy',
@@ -919,6 +929,8 @@
 
   let currentTel = safeDecode(params.get('tel'));
   let currentTel2 = '';
+  let currentPersonName = '';
+  let currentPersonAbout = '';
   const productId = safeDecode(params.get('id'));
 
   const callLink = document.getElementById('call-link');
@@ -935,6 +947,11 @@
     const tt = t || translations[currentLang] || translations.cs;
     const remaining = 160 - aboutInput.value.length;
     document.getElementById('hint-about-text').textContent = tt.hintAbout.replace('{n}', remaining);
+  }
+
+  function getSafecardTitle(t) {
+    const tt = t || translations[currentLang] || translations.cs;
+    return currentPersonName ? tt.titleWithName.replace('{name}', currentPersonName) : tt.title;
   }
 
   const statusLoading = document.getElementById('status-loading');
@@ -954,10 +971,11 @@
     } else {
       callLink2.style.display = 'none';
     }
-    if (name) {
-      document.getElementById('person-name-text').textContent = name;
-      document.getElementById('person-about-text').textContent = about || '';
-      document.getElementById('person-about-text').style.display = about ? '' : 'none';
+    currentPersonName = name || '';
+    currentPersonAbout = about || '';
+    document.getElementById('title-text').textContent = getSafecardTitle();
+    if (currentPersonAbout) {
+      document.getElementById('person-about-text').textContent = currentPersonAbout;
       document.getElementById('person-info').style.display = '';
     } else {
       document.getElementById('person-info').style.display = 'none';
@@ -1011,7 +1029,8 @@
     const t = translations[lang] || translations.cs;
 
     document.getElementById('loading-text-el').textContent = t.loadingText;
-    document.getElementById('title-text').textContent = t.title;
+    document.getElementById('title-text').textContent = getSafecardTitle(t);
+    document.getElementById('person-about-label-text').textContent = t.aboutLabel;
     document.getElementById('lead-text').textContent = t.lead;
     document.getElementById('fallback-label-text').textContent = t.fallbackLabel;
     document.getElementById('fallback-btn-text').textContent = t.fallbackBtn;
