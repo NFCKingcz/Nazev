@@ -259,20 +259,59 @@
     color:#3A342C;
     margin-bottom:12px;
   }
-  .backup-text-link{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    margin-top:16px;
-    font-size:15px;
-    font-weight:600;
-    color:var(--ink);
-    text-decoration:underline;
-    text-decoration-color:var(--border);
-    text-underline-offset:3px;
+  .contact-panels{
+    display:flex;
+    gap:12px;
   }
-  .backup-text-link svg{opacity:0.7;}
-  .backup-text-link:active{opacity:0.6;}
+  .contact-panel{
+    flex:1;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    padding:22px 12px;
+    border-radius:18px;
+    text-decoration:none;
+    transition:transform 0.15s ease;
+  }
+  .contact-panel:active{transform:scale(0.97);}
+  .contact-panel:focus-visible{outline:3px solid var(--accent-soft);outline-offset:3px;}
+  .contact-panel-primary{
+    background:var(--ink);
+    color:#fff;
+    box-shadow:0 10px 24px rgba(28,22,16,0.18);
+  }
+  .contact-panel-secondary{
+    background:#EFEFEF;
+    color:var(--ink);
+  }
+  .contact-panel-icon{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .contact-panel-primary .contact-panel-icon{
+    background:rgba(255,255,255,0.15);
+  }
+  .contact-panel-secondary .contact-panel-icon{
+    background:rgba(28,22,16,0.07);
+  }
+  .contact-panel-label{
+    font-size:12px;
+    font-weight:600;
+    opacity:0.8;
+    text-align:center;
+  }
+  .contact-panel-action{
+    font-size:15px;
+    font-weight:700;
+    text-align:center;
+  }
   #feedback-btn{
     border:none;
     cursor:pointer;
@@ -368,7 +407,7 @@
     font-weight:600;
     margin:16px 0 6px;
   }
-  input, textarea{
+  input, textarea, select{
     width:100%;
     padding:13px 14px;
     border:1.5px solid var(--border);
@@ -383,7 +422,16 @@
     min-height:64px;
     line-height:1.5;
   }
-  input:focus, textarea:focus{
+  select{
+    appearance:none;
+    -webkit-appearance:none;
+    background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%235B5349' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+    padding-right:34px;
+    cursor:pointer;
+  }
+  input:focus, textarea:focus, select:focus{
     outline:2px solid var(--accent-soft);
     border-color:var(--accent);
   }
@@ -392,6 +440,14 @@
     font-size:11px;
     color:var(--muted);
     margin-top:5px;
+  }
+  .tel-fields-row{
+    display:flex;
+    gap:12px;
+  }
+  .tel-field-group{
+    flex:1;
+    min-width:0;
   }
   .consent-label{
     display:flex;
@@ -499,26 +555,34 @@
 
     <div id="safecard-content" style="display:none;">
       <h1 id="title-text">Možná potřebuji pomoc.</h1>
-      <p class="lead" id="lead-text">Stisknutím tlačítka se spojíte s blízkou osobou.</p>
-
       <div id="person-info" style="display:none;">
         <p class="person-about-label" id="person-about-label-text">O mně:</p>
         <p class="person-about" id="person-about-text"></p>
       </div>
 
-      <a id="call-link" class="call-btn" href="#">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6.6 10.8C8 13.6 10.4 16 13.2 17.4L15.4 15.2C15.7 14.9 16.1 14.8 16.5 15C17.8 15.4 19.1 15.6 20.5 15.6C21.1 15.6 21.5 16 21.5 16.6V20.5C21.5 21.1 21.1 21.5 20.5 21.5C10.8 21.5 3 13.7 3 4C3 3.4 3.4 3 4 3H7.9C8.5 3 8.9 3.4 8.9 4C8.9 5.4 9.1 6.7 9.5 8C9.6 8.4 9.5 8.8 9.3 9.1L7.1 11.3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span id="call-text">Zavolat</span>
-      </a>
+      <p class="lead" id="lead-text">Stisknutím tlačítka se spojíte s blízkou osobou.</p>
 
-      <a id="call-link-2" class="backup-text-link" href="#" style="display:none;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6.6 10.8C8 13.6 10.4 16 13.2 17.4L15.4 15.2C15.7 14.9 16.1 14.8 16.5 15C17.8 15.4 19.1 15.6 20.5 15.6C21.1 15.6 21.5 16 21.5 16.6V20.5C21.5 21.1 21.1 21.5 20.5 21.5C10.8 21.5 3 13.7 3 4C3 3.4 3.4 3 4 3H7.9C8.5 3 8.9 3.4 8.9 4C8.9 5.4 9.1 6.7 9.5 8C9.6 8.4 9.5 8.8 9.3 9.1L7.1 11.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span id="call-text-2"></span>
-      </a>
+      <div class="contact-panels" id="contact-panels">
+        <a id="call-link" class="contact-panel contact-panel-primary" href="#">
+          <span class="contact-panel-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.6 10.8C8 13.6 10.4 16 13.2 17.4L15.4 15.2C15.7 14.9 16.1 14.8 16.5 15C17.8 15.4 19.1 15.6 20.5 15.6C21.1 15.6 21.5 16 21.5 16.6V20.5C21.5 21.1 21.1 21.5 20.5 21.5C10.8 21.5 3 13.7 3 4C3 3.4 3.4 3 4 3H7.9C8.5 3 8.9 3.4 8.9 4C8.9 5.4 9.1 6.7 9.5 8C9.6 8.4 9.5 8.8 9.3 9.1L7.1 11.3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="contact-panel-label" id="call-panel-label">Hlavní kontakt</span>
+          <span class="contact-panel-action" id="call-text">Zavolat</span>
+        </a>
+
+        <a id="call-link-2" class="contact-panel contact-panel-secondary" href="#" style="display:none;">
+          <span class="contact-panel-icon">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.6 10.8C8 13.6 10.4 16 13.2 17.4L15.4 15.2C15.7 14.9 16.1 14.8 16.5 15C17.8 15.4 19.1 15.6 20.5 15.6C21.1 15.6 21.5 16 21.5 16.6V20.5C21.5 21.1 21.1 21.5 20.5 21.5C10.8 21.5 3 13.7 3 4C3 3.4 3.4 3 4 3H7.9C8.5 3 8.9 3.4 8.9 4C8.9 5.4 9.1 6.7 9.5 8C9.6 8.4 9.5 8.8 9.3 9.1L7.1 11.3" stroke="#1C1610" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="contact-panel-label" id="call-panel-label-2">Záložní kontakt</span>
+          <span class="contact-panel-action" id="call-text-2">Zavolat</span>
+        </a>
+      </div>
 
       <div class="divider"></div>
 
@@ -546,6 +610,12 @@
         <div class="divider"></div>
         <p class="section-label" style="text-align:left;" id="person-section-label">Údaje o osobě v nouzi</p>
 
+        <label for="categorySelect" id="label-category-text">Pro koho je produkt určen?</label>
+        <select id="categorySelect">
+          <option value="child" id="option-category-child" selected>Dítě</option>
+          <option value="senior" id="option-category-senior">Senior</option>
+        </select>
+
         <label for="nameInput" id="label-name-text">Křestní jméno</label>
         <input type="text" id="nameInput" placeholder="např. Anna" autocomplete="given-name" maxlength="60">
 
@@ -556,13 +626,18 @@
         <div class="divider"></div>
         <p class="section-label" style="text-align:left;" id="contacts-section-label">Zodpovědné osoby</p>
 
-        <label for="telInput" id="label-tel-text">Hlavní kontakt</label>
-        <input type="tel" id="telInput" placeholder="+420777123456" autocomplete="tel">
-        <p class="hint" id="hint-tel-text">Zadejte včetně předvolby, např. +420 777 123 456.</p>
-
-        <label for="telInput2" id="label-tel2-text">Záložní kontakt (nepovinné)</label>
-        <input type="tel" id="telInput2" placeholder="+420777123456" autocomplete="tel">
-        <p class="hint" id="hint-tel2-text">Zadejte včetně předvolby, např. +420 777 123 456.</p>
+        <div class="tel-fields-row">
+          <div class="tel-field-group">
+            <label for="telInput" id="label-tel-text">Hlavní kontakt</label>
+            <input type="tel" id="telInput" placeholder="+420777123456" autocomplete="tel">
+            <p class="hint" id="hint-tel-text">Zadejte včetně předvolby, např. +420 777 123 456.</p>
+          </div>
+          <div class="tel-field-group">
+            <label for="telInput2" id="label-tel2-text">Záložní kontakt (nepovinné)</label>
+            <input type="tel" id="telInput2" placeholder="+420777123456" autocomplete="tel">
+            <p class="hint" id="hint-tel2-text">Zadejte včetně předvolby, např. +420 777 123 456.</p>
+          </div>
+        </div>
 
         <label class="consent-label" for="consentCheckbox">
           <input type="checkbox" id="consentCheckbox">
@@ -610,9 +685,18 @@
       footerText: '© 2026 Hopely.cz. Všechna práva vyhrazena.',
       title: 'Možná potřebuji pomoc.',
       titleWithName: 'Jsem {name} a možná potřebuji pomoc.',
+      titleChild: 'Ztratil/a jsem se.',
+      titleChildWithName: 'Jsem {name} a potřebuji pomoc s návratem ke svým blízkým.',
+      titleSenior: 'Možná potřebuji pomoc.',
+      titleSeniorWithName: 'Jsem {name} a možná potřebuji pomoc.',
+      labelCategory: 'Pro koho je produkt určen?',
+      categoryUniversal: 'Univerzální',
+      categoryChild: 'Dítě',
+      categorySenior: 'Senior',
       aboutLabel: 'O mně:',
       lead: 'Stisknutím tlačítka se spojíte s blízkou osobou.',
       callPrefix: 'Zavolat ',
+      callAction: 'Zavolat',
       backupLabel: 'Záložní kontakt',
       noContact: 'Kontakt zatím nenastaven',
       feedbackHeading: 'Zpětná vazba',
@@ -630,7 +714,8 @@
       labelName: 'Křestní jméno',
       placeholderName: 'např. Anna',
       labelAbout: 'O mně (nepovinné)',
-      placeholderAbout: 'Např.: Mám potíže s komunikací, v případě potřeby zavolejte rodičům.',
+      placeholderAbout: 'Např.: Anna se stydí mluvit s cizími lidmi, raději mluví se ženami než s muži.',
+      placeholderAboutSenior: 'Např.: Josef hůř slyší, mluvte prosím pomalu a nahlas.',
       hintAbout: 'Zbývá {n} znaků.',
       labelTel: 'Hlavní kontakt',
       hintTel: 'Zadejte včetně předvolby, např. +420 777 123 456.',
@@ -659,9 +744,18 @@
       footerText: '© 2026 Hopely.cz. All rights reserved.',
       title: 'I might need help.',
       titleWithName: "I'm {name} and I might need help.",
+      titleChild: 'I got lost.',
+      titleChildWithName: "I'm {name} and I need help getting back to my family.",
+      titleSenior: 'I might need help.',
+      titleSeniorWithName: "I'm {name} and I might need help.",
+      labelCategory: 'Who is this product for?',
+      categoryUniversal: 'Universal',
+      categoryChild: 'Child',
+      categorySenior: 'Senior',
       aboutLabel: 'About me:',
       lead: 'Press the button to reach someone close to me.',
       callPrefix: 'Call ',
+      callAction: 'Call',
       backupLabel: 'Backup contact',
       noContact: 'Contact not set yet',
       feedbackHeading: 'Feedback',
@@ -679,7 +773,8 @@
       labelName: 'First name',
       placeholderName: 'e.g. Anna',
       labelAbout: 'About me (optional)',
-      placeholderAbout: 'E.g.: I have trouble communicating, please call my parents if needed.',
+      placeholderAbout: 'E.g.: Anna is shy around strangers and finds it easier to talk to women than men.',
+      placeholderAboutSenior: 'E.g.: Josef has trouble hearing, please speak slowly and clearly.',
       hintAbout: '{n} characters left.',
       labelTel: 'Primary contact',
       hintTel: 'Include the country code, e.g. +420 777 123 456.',
@@ -708,9 +803,18 @@
       footerText: '© 2026 Hopely.cz. Alle Rechte vorbehalten.',
       title: 'Vielleicht brauche ich Hilfe.',
       titleWithName: 'Ich bin {name} und brauche vielleicht Hilfe.',
+      titleChild: 'Ich habe mich verlaufen.',
+      titleChildWithName: 'Ich bin {name} und brauche Hilfe, um zu meiner Familie zurückzufinden.',
+      titleSenior: 'Vielleicht brauche ich Hilfe.',
+      titleSeniorWithName: 'Ich bin {name} und brauche vielleicht Hilfe.',
+      labelCategory: 'Für wen ist dieses Produkt gedacht?',
+      categoryUniversal: 'Universal',
+      categoryChild: 'Kind',
+      categorySenior: 'Senior',
       aboutLabel: 'Über mich:',
       lead: 'Drücken Sie die Schaltfläche, um eine nahestehende Person zu erreichen.',
       callPrefix: 'Anrufen ',
+      callAction: 'Anrufen',
       backupLabel: 'Ersatzkontakt',
       noContact: 'Kontakt noch nicht festgelegt',
       feedbackHeading: 'Feedback',
@@ -728,7 +832,8 @@
       labelName: 'Vorname',
       placeholderName: 'z. B. Anna',
       labelAbout: 'Über mich (optional)',
-      placeholderAbout: 'Z. B.: Ich habe Kommunikationsschwierigkeiten, bitte rufen Sie im Bedarfsfall meine Eltern an.',
+      placeholderAbout: 'Z. B.: Anna ist schüchtern gegenüber Fremden und spricht lieber mit Frauen als mit Männern.',
+      placeholderAboutSenior: 'Z. B.: Josef hört schlecht, bitte sprechen Sie langsam und deutlich.',
       hintAbout: 'Noch {n} Zeichen übrig.',
       labelTel: 'Hauptkontakt',
       hintTel: 'Bitte mit Vorwahl angeben, z. B. +420 777 123 456.',
@@ -757,9 +862,18 @@
       footerText: '© 2026 Hopely.cz. Tous droits réservés.',
       title: "J'ai peut-être besoin d'aide.",
       titleWithName: "Je m'appelle {name} et j'ai peut-être besoin d'aide.",
+      titleChild: 'Je suis perdu(e).',
+      titleChildWithName: "Je m'appelle {name} et j'ai besoin d'aide pour retrouver ma famille.",
+      titleSenior: "J'ai peut-être besoin d'aide.",
+      titleSeniorWithName: "Je m'appelle {name} et j'ai peut-être besoin d'aide.",
+      labelCategory: 'Pour qui ce produit est-il destiné ?',
+      categoryUniversal: 'Universel',
+      categoryChild: 'Enfant',
+      categorySenior: 'Senior',
       aboutLabel: 'À propos de moi :',
       lead: 'Appuyez sur le bouton pour joindre un proche.',
       callPrefix: 'Appeler ',
+      callAction: 'Appeler',
       backupLabel: 'Contact de secours',
       noContact: 'Contact non renseigné',
       feedbackHeading: 'Retour',
@@ -777,7 +891,8 @@
       labelName: 'Prénom',
       placeholderName: 'ex. Anna',
       labelAbout: 'À propos de moi (facultatif)',
-      placeholderAbout: "Ex. : J'ai des difficultés à communiquer, veuillez appeler mes parents si nécessaire.",
+      placeholderAbout: "Ex. : Anna est timide avec les inconnus et parle plus facilement aux femmes qu'aux hommes.",
+      placeholderAboutSenior: "Ex. : Josef entend mal, veuillez parler lentement et distinctement.",
       hintAbout: '{n} caractères restants.',
       labelTel: 'Contact principal',
       hintTel: "Indiquez l'indicatif, par ex. +420 777 123 456.",
@@ -806,9 +921,18 @@
       footerText: '© 2026 Hopely.cz. Todos los derechos reservados.',
       title: 'Puede que necesite ayuda.',
       titleWithName: 'Soy {name} y puede que necesite ayuda.',
+      titleChild: 'Me he perdido.',
+      titleChildWithName: 'Soy {name} y necesito ayuda para volver con mi familia.',
+      titleSenior: 'Puede que necesite ayuda.',
+      titleSeniorWithName: 'Soy {name} y puede que necesite ayuda.',
+      labelCategory: '¿Para quién es este producto?',
+      categoryUniversal: 'Universal',
+      categoryChild: 'Niño/a',
+      categorySenior: 'Mayor',
       aboutLabel: 'Sobre mí:',
       lead: 'Pulse el botón para contactar con alguien cercano.',
       callPrefix: 'Llamar ',
+      callAction: 'Llamar',
       backupLabel: 'Contacto de respaldo',
       noContact: 'Contacto aún no configurado',
       feedbackHeading: 'Opinión',
@@ -826,7 +950,8 @@
       labelName: 'Nombre',
       placeholderName: 'ej. Anna',
       labelAbout: 'Sobre mí (opcional)',
-      placeholderAbout: 'Ej.: Tengo dificultades de comunicación, llame a mis padres si es necesario.',
+      placeholderAbout: 'Ej.: Anna es tímida con desconocidos y le resulta más fácil hablar con mujeres que con hombres.',
+      placeholderAboutSenior: 'Ej.: El señor Novák oye mal, por favor hable despacio y claro.',
       hintAbout: 'Quedan {n} caracteres.',
       labelTel: 'Contacto principal',
       hintTel: 'Incluya el prefijo, por ejemplo +420 777 123 456.',
@@ -855,9 +980,18 @@
       footerText: '© 2026 Hopely.cz. Wszelkie prawa zastrzeżone.',
       title: 'Może potrzebuję pomocy.',
       titleWithName: 'Jestem {name} i może potrzebuję pomocy.',
+      titleChild: 'Zgubiłem/zgubiłam się.',
+      titleChildWithName: 'Jestem {name} i potrzebuję pomocy, aby wrócić do rodziny.',
+      titleSenior: 'Może potrzebuję pomocy.',
+      titleSeniorWithName: 'Jestem {name} i może potrzebuję pomocy.',
+      labelCategory: 'Dla kogo jest ten produkt?',
+      categoryUniversal: 'Uniwersalny',
+      categoryChild: 'Dziecko',
+      categorySenior: 'Senior',
       aboutLabel: 'O mnie:',
       lead: 'Naciśnij przycisk, aby połączyć się z bliską osobą.',
       callPrefix: 'Zadzwoń ',
+      callAction: 'Zadzwoń',
       backupLabel: 'Kontakt zapasowy',
       noContact: 'Kontakt jeszcze nie ustawiony',
       feedbackHeading: 'Informacja zwrotna',
@@ -875,7 +1009,7 @@
       labelName: 'Imię',
       placeholderName: 'np. Anna',
       labelAbout: 'O mnie (opcjonalnie)',
-      placeholderAbout: 'Np.: Mam trudności z komunikacją, w razie potrzeby proszę zadzwonić do rodziców.',
+      placeholderAbout: 'Np.: Anna jest nieśmiała wobec obcych i chętniej rozmawia z kobietami niż z mężczyznami.',
       hintAbout: 'Pozostało {n} znaków.',
       labelTel: 'Kontakt główny',
       hintTel: 'Proszę podać numer z numerem kierunkowym, np. +420 777 123 456.',
@@ -931,6 +1065,7 @@
   let currentTel2 = '';
   let currentPersonName = '';
   let currentPersonAbout = '';
+  let currentPersonCategory = '';
   const productId = safeDecode(params.get('id'));
 
   const callLink = document.getElementById('call-link');
@@ -942,6 +1077,7 @@
   const idInput = document.getElementById('idInput');
   const nameInput = document.getElementById('nameInput');
   const aboutInput = document.getElementById('aboutInput');
+  const categorySelect = document.getElementById('categorySelect');
 
   function updateAboutHint(t) {
     const tt = t || translations[currentLang] || translations.cs;
@@ -951,12 +1087,21 @@
 
   function getSafecardTitle(t) {
     const tt = t || translations[currentLang] || translations.cs;
-    return currentPersonName ? tt.titleWithName.replace('{name}', currentPersonName) : tt.title;
+    let base = tt.title;
+    let withName = tt.titleWithName;
+    if (currentPersonCategory === 'child') {
+      base = tt.titleChild;
+      withName = tt.titleChildWithName;
+    } else if (currentPersonCategory === 'senior') {
+      base = tt.titleSenior;
+      withName = tt.titleSeniorWithName;
+    }
+    return currentPersonName ? withName.replace('{name}', currentPersonName) : base;
   }
 
   const statusLoading = document.getElementById('status-loading');
 
-  function showSafecard(phone, phone2, name, about) {
+  function showSafecard(phone, phone2, name, about, category) {
     currentTel = phone;
     currentTel2 = phone2 || '';
     if (phone) {
@@ -973,6 +1118,7 @@
     }
     currentPersonName = name || '';
     currentPersonAbout = about || '';
+    currentPersonCategory = category || 'universal';
     document.getElementById('title-text').textContent = getSafecardTitle();
     if (currentPersonAbout) {
       document.getElementById('person-about-text').textContent = currentPersonAbout;
@@ -1015,7 +1161,7 @@
         let data;
         try { data = JSON.parse(text); } catch (e) { data = null; }
         if (data && data.success && data.activated) {
-          showSafecard(data.tel || '', data.tel2 || '', data.name || '', data.about || '');
+          showSafecard(data.tel || '', data.tel2 || '', data.name || '', data.about || '', data.category || '');
         } else {
           showWelcome();
         }
@@ -1037,8 +1183,10 @@
     document.getElementById('feedback-heading-text').textContent = t.feedbackHeading;
     document.getElementById('feedback-btn').textContent = t.feedbackBtnText;
     document.getElementById('feedback-thanks-text').textContent = t.feedbackThanks;
-    callText.textContent = currentTel ? t.callPrefix + currentTel : t.noContact;
-    if (currentTel2) callText2.textContent = t.backupLabel + ': ' + currentTel2;
+    document.getElementById('call-panel-label').textContent = t.labelTel;
+    document.getElementById('call-panel-label-2').textContent = t.backupLabel;
+    callText.textContent = currentTel ? t.callAction : t.noContact;
+    if (currentTel2) callText2.textContent = t.callAction;
 
     document.getElementById('welcome-title-text').textContent = t.welcomeTitle;
     document.getElementById('welcome-lead-text').textContent = t.welcomeLead;
@@ -1048,6 +1196,9 @@
     document.getElementById('hint-id-text').textContent = t.hintId;
     document.getElementById('person-section-label').textContent = t.personSectionLabel;
     document.getElementById('contacts-section-label').textContent = t.contactsSectionLabel;
+    document.getElementById('label-category-text').textContent = t.labelCategory;
+    document.getElementById('option-category-child').textContent = t.categoryChild;
+    document.getElementById('option-category-senior').textContent = t.categorySenior;
     document.getElementById('label-name-text').textContent = t.labelName;
     nameInput.placeholder = t.placeholderName;
     document.getElementById('label-about-text').textContent = t.labelAbout;
@@ -1161,6 +1312,7 @@
   submitBtn.addEventListener('click', function () {
     const t = translations[currentLang] || translations.cs;
     const id = idInput.value.trim();
+    const submittedCategory = categorySelect.value;
     const submittedName = nameInput.value.trim();
     const submittedAbout = aboutInput.value.trim();
     const submittedTel = telInput.value.trim();
@@ -1179,6 +1331,7 @@
 
     const body = new URLSearchParams();
     body.append('id', id);
+    body.append('category', submittedCategory);
     body.append('name', submittedName);
     body.append('about', submittedAbout);
     body.append('tel', submittedTel);
