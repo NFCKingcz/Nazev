@@ -216,8 +216,13 @@
     margin-bottom:24px;
     padding:0 4px;
   }
+  #lead-text{
+    font-weight:700;
+    color:#3A342C;
+    margin-bottom:14px;
+  }
   #person-info{
-    margin:-8px 0 24px;
+    margin:16px 0 24px;
     padding:14px 16px;
     background:#FAF7F3;
     border-radius:14px;
@@ -279,9 +284,9 @@
   .contact-panel:active{transform:scale(0.97);}
   .contact-panel:focus-visible{outline:3px solid var(--accent-soft);outline-offset:3px;}
   .contact-panel-primary{
-    background:var(--ink);
+    background:#1F5C33;
     color:#fff;
-    box-shadow:0 10px 24px rgba(28,22,16,0.18);
+    box-shadow:0 10px 24px rgba(31,92,51,0.25);
   }
   .contact-panel-secondary{
     background:#EFEFEF;
@@ -695,7 +700,7 @@
       categoryChild: 'Dítě',
       categorySenior: 'Senior',
       aboutLabel: 'O mně:',
-      lead: 'Stisknutím tlačítka se spojíte s blízkou osobou.',
+      lead: 'Stisknutím se spojíte s osobou.',
       callPrefix: 'Zavolat ',
       callAction: 'Zavolat',
       backupLabel: 'Záložní kontakt',
@@ -716,8 +721,8 @@
       placeholderName: 'např. Anna',
       placeholderNameSenior: 'např. Josef',
       labelAbout: 'O mně (nepovinné)',
-      placeholderAbout: 'Např.: Anna se stydí mluvit s cizími lidmi, zůstaňte prosím s ní, dokud nedorazí rodič.',
-      placeholderAboutSenior: 'Např.: Josef hůř slyší, mluvte prosím pomalu a nahlas.',
+      placeholderAbout: 'Např.: Stydím se mluvit s cizími lidmi, zůstaňte prosím se mnou, dokud nedorazí rodič.',
+      placeholderAboutSenior: 'Např.: Hůř slyším, mluvte prosím pomalu a nahlas.',
       hintAbout: 'Zbývá {n} znaků.',
       labelTel: 'Hlavní kontakt',
       hintTel: 'Zadejte včetně předvolby, např. +420 777 123 456.',
@@ -755,7 +760,7 @@
       categoryChild: 'Child',
       categorySenior: 'Senior',
       aboutLabel: 'About me:',
-      lead: 'Press the button to reach someone close to me.',
+      lead: 'Press to reach someone close.',
       callPrefix: 'Call ',
       callAction: 'Call',
       backupLabel: 'Backup contact',
@@ -776,8 +781,8 @@
       placeholderName: 'e.g. Anna',
       placeholderNameSenior: 'e.g. Josef',
       labelAbout: 'About me (optional)',
-      placeholderAbout: 'E.g.: Anna is shy around strangers, please stay with her until a parent arrives.',
-      placeholderAboutSenior: 'E.g.: Josef has trouble hearing, please speak slowly and clearly.',
+      placeholderAbout: "E.g.: I'm shy around strangers, please stay with me until a parent arrives.",
+      placeholderAboutSenior: 'E.g.: I have trouble hearing, please speak slowly and clearly.',
       hintAbout: '{n} characters left.',
       labelTel: 'Primary contact',
       hintTel: 'Include the country code, e.g. +420 777 123 456.',
@@ -815,7 +820,7 @@
       categoryChild: 'Kind',
       categorySenior: 'Senior',
       aboutLabel: 'Über mich:',
-      lead: 'Drücken Sie die Schaltfläche, um eine nahestehende Person zu erreichen.',
+      lead: 'Taste drücken, um zu verbinden.',
       callPrefix: 'Anrufen ',
       callAction: 'Anrufen',
       backupLabel: 'Ersatzkontakt',
@@ -836,8 +841,8 @@
       placeholderName: 'z. B. Anna',
       placeholderNameSenior: 'z. B. Josef',
       labelAbout: 'Über mich (optional)',
-      placeholderAbout: 'Z. B.: Anna ist schüchtern gegenüber Fremden, bitte bleiben Sie bei ihr, bis ein Elternteil eintrifft.',
-      placeholderAboutSenior: 'Z. B.: Josef hört schlecht, bitte sprechen Sie langsam und deutlich.',
+      placeholderAbout: 'Z. B.: Ich bin schüchtern gegenüber Fremden, bitte bleiben Sie bei mir, bis ein Elternteil eintrifft.',
+      placeholderAboutSenior: 'Z. B.: Ich höre schlecht, bitte sprechen Sie langsam und deutlich.',
       hintAbout: 'Noch {n} Zeichen übrig.',
       labelTel: 'Hauptkontakt',
       hintTel: 'Bitte mit Vorwahl angeben, z. B. +420 777 123 456.',
@@ -875,7 +880,7 @@
       categoryChild: 'Enfant',
       categorySenior: 'Senior',
       aboutLabel: 'À propos de moi :',
-      lead: 'Appuyez sur le bouton pour joindre un proche.',
+      lead: 'Appuyez pour joindre un proche.',
       callPrefix: 'Appeler ',
       callAction: 'Appeler',
       backupLabel: 'Contact de secours',
@@ -896,8 +901,8 @@
       placeholderName: 'ex. Anna',
       placeholderNameSenior: 'ex. Josef',
       labelAbout: 'À propos de moi (facultatif)',
-      placeholderAbout: "Ex. : Anna est timide avec les inconnus, merci de rester avec elle jusqu'à l'arrivée d'un parent.",
-      placeholderAboutSenior: "Ex. : Josef entend mal, veuillez parler lentement et distinctement.",
+      placeholderAbout: "Ex. : Je suis timide avec les inconnus, merci de rester avec moi jusqu'à l'arrivée d'un parent.",
+      placeholderAboutSenior: "Ex. : J'entends mal, veuillez parler lentement et distinctement.",
       hintAbout: '{n} caractères restants.',
       labelTel: 'Contact principal',
       hintTel: "Indiquez l'indicatif, par ex. +420 777 123 456.",
@@ -935,7 +940,7 @@
       categoryChild: 'Niño/a',
       categorySenior: 'Mayor',
       aboutLabel: 'Sobre mí:',
-      lead: 'Pulse el botón para contactar con alguien cercano.',
+      lead: 'Pulse para contactar a alguien.',
       callPrefix: 'Llamar ',
       callAction: 'Llamar',
       backupLabel: 'Contacto de respaldo',
@@ -956,8 +961,8 @@
       placeholderName: 'ej. Anna',
       placeholderNameSenior: 'ej. Josef',
       labelAbout: 'Sobre mí (opcional)',
-      placeholderAbout: 'Ej.: Anna es tímida con desconocidos, quédese con ella hasta que llegue un padre o madre.',
-      placeholderAboutSenior: 'Ej.: El señor Novák oye mal, por favor hable despacio y claro.',
+      placeholderAbout: 'Ej.: Soy tímido/a con desconocidos, quédese conmigo hasta que llegue un padre o madre.',
+      placeholderAboutSenior: 'Ej.: Oigo mal, por favor hable despacio y claro.',
       hintAbout: 'Quedan {n} caracteres.',
       labelTel: 'Contacto principal',
       hintTel: 'Incluya el prefijo, por ejemplo +420 777 123 456.',
@@ -995,7 +1000,7 @@
       categoryChild: 'Dziecko',
       categorySenior: 'Senior',
       aboutLabel: 'O mnie:',
-      lead: 'Naciśnij przycisk, aby połączyć się z bliską osobą.',
+      lead: 'Naciśnij, aby połączyć się z osobą.',
       callPrefix: 'Zadzwoń ',
       callAction: 'Zadzwoń',
       backupLabel: 'Kontakt zapasowy',
@@ -1016,7 +1021,8 @@
       placeholderName: 'np. Anna',
       placeholderNameSenior: 'np. Josef',
       labelAbout: 'O mnie (opcjonalnie)',
-      placeholderAbout: 'Np.: Anna jest nieśmiała wobec obcych, proszę zostać z nią do przyjazdu rodzica.',
+      placeholderAbout: 'Np.: Jestem nieśmiały/a wobec obcych, proszę zostać ze mną do przyjazdu rodzica.',
+      placeholderAboutSenior: 'Np.: Słabo słyszę, proszę mówić wolno i wyraźnie.',
       hintAbout: 'Pozostało {n} znaków.',
       labelTel: 'Kontakt główny',
       hintTel: 'Proszę podać numer z numerem kierunkowym, np. +420 777 123 456.',
