@@ -217,6 +217,24 @@
     margin-bottom:24px;
     padding:0 4px;
   }
+  #person-info{
+    margin:-8px 0 24px;
+    padding:14px 16px;
+    background:#FAF7F3;
+    border-radius:14px;
+  }
+  .person-name{
+    font-size:15px;
+    font-weight:700;
+    color:#3A342C;
+    margin-bottom:4px;
+  }
+  .person-about{
+    font-size:13.5px;
+    line-height:1.5;
+    color:var(--muted);
+    font-style:italic;
+  }
   .call-btn{
     display:flex;
     align-items:center;
@@ -352,7 +370,7 @@
     font-weight:600;
     margin:16px 0 6px;
   }
-  input{
+  input, textarea{
     width:100%;
     padding:13px 14px;
     border:1.5px solid var(--border);
@@ -362,7 +380,12 @@
     font-family:inherit;
     color:var(--ink);
   }
-  input:focus{
+  textarea{
+    resize:vertical;
+    min-height:64px;
+    line-height:1.5;
+  }
+  input:focus, textarea:focus{
     outline:2px solid var(--accent-soft);
     border-color:var(--accent);
   }
@@ -371,6 +394,32 @@
     font-size:11px;
     color:var(--muted);
     margin-top:5px;
+  }
+  .consent-label{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    text-align:left;
+    margin:22px 0 0;
+    cursor:pointer;
+  }
+  .consent-label input[type="checkbox"]{
+    width:18px;
+    height:18px;
+    min-width:18px;
+    margin:1px 0 0;
+    accent-color:var(--ink);
+    cursor:pointer;
+  }
+  .consent-label span{
+    font-size:12px;
+    line-height:1.5;
+    color:var(--muted);
+  }
+  .consent-label a{
+    color:var(--ink);
+    text-decoration:underline;
+    text-decoration-color:var(--border);
   }
   #welcome-form-view .call-btn{
     margin-top:22px;
@@ -454,6 +503,11 @@
       <h1 id="title-text">Možná potřebuji pomoc.</h1>
       <p class="lead" id="lead-text">Stisknutím tlačítka se spojíte s blízkou osobou.</p>
 
+      <div id="person-info" style="display:none;">
+        <p class="person-name" id="person-name-text"></p>
+        <p class="person-about" id="person-about-text"></p>
+      </div>
+
       <a id="call-link" class="call-btn" href="#">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.6 10.8C8 13.6 10.4 16 13.2 17.4L15.4 15.2C15.7 14.9 16.1 14.8 16.5 15C17.8 15.4 19.1 15.6 20.5 15.6C21.1 15.6 21.5 16 21.5 16.6V20.5C21.5 21.1 21.1 21.5 20.5 21.5C10.8 21.5 3 13.7 3 4C3 3.4 3.4 3 4 3H7.9C8.5 3 8.9 3.4 8.9 4C8.9 5.4 9.1 6.7 9.5 8C9.6 8.4 9.5 8.8 9.3 9.1L7.1 11.3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -491,6 +545,19 @@
           <p class="hint" id="hint-id-text">Najdete ho na obalu nebo přímo na výrobku.</p>
         </div>
 
+        <div class="divider"></div>
+        <p class="section-label" style="text-align:left;" id="person-section-label">Údaje o osobě v nouzi</p>
+
+        <label for="nameInput" id="label-name-text">Křestní jméno</label>
+        <input type="text" id="nameInput" placeholder="např. Anna" autocomplete="given-name" maxlength="60">
+
+        <label for="aboutInput" id="label-about-text">O mně (nepovinné)</label>
+        <textarea id="aboutInput" rows="3" maxlength="160" placeholder="Např.: Mám potíže s komunikací, v případě potřeby zavolejte rodičům."></textarea>
+        <p class="hint" id="hint-about-text">Zbývá 160 znaků.</p>
+
+        <div class="divider"></div>
+        <p class="section-label" style="text-align:left;" id="contacts-section-label">Zodpovědné osoby</p>
+
         <label for="telInput" id="label-tel-text">Hlavní kontakt</label>
         <input type="tel" id="telInput" placeholder="+420777123456" autocomplete="tel">
         <p class="hint" id="hint-tel-text">Zadejte včetně předvolby, např. +420 777 123 456.</p>
@@ -498,6 +565,11 @@
         <label for="telInput2" id="label-tel2-text">Záložní kontakt (nepovinné)</label>
         <input type="tel" id="telInput2" placeholder="+420777123456" autocomplete="tel">
         <p class="hint" id="hint-tel2-text">Zadejte včetně předvolby, např. +420 777 123 456.</p>
+
+        <label class="consent-label" for="consentCheckbox">
+          <input type="checkbox" id="consentCheckbox">
+          <span id="consent-text">Potvrzuji, že jsem oprávněn/a tyto údaje vyplnit, ať už jde o mě, o osobu, jejímž jsem zákonným zástupcem, nebo o osobu, jejíž péčí jsem byl/a pověřen/a (např. jako pečovatel, učitel nebo doprovod na akci), a souhlasím s tím, že zadané jméno, telefonní čísla a případný text „O mně“ budou uložena a zobrazena komukoli, kdo produkt naskenuje. Podrobnosti v <a href="https://www.hopely.cz/zasady-ochrany-osobnich-udaju" target="_blank" rel="noopener" id="consent-privacy-link">zásadách ochrany osobních údajů</a>.</span>
+        </label>
 
         <button type="button" id="submitBtn" class="call-btn">
           <span class="spinner" id="submit-spinner" style="display:none;"></span>
@@ -553,6 +625,13 @@
       welcomeBtn: 'Aktivovat produkt',
       labelId: 'Sériové číslo',
       hintId: 'Najdete ho na obalu nebo přímo na výrobku.',
+      personSectionLabel: 'Údaje o osobě v nouzi',
+      contactsSectionLabel: 'Zodpovědné osoby',
+      labelName: 'Křestní jméno',
+      placeholderName: 'např. Anna',
+      labelAbout: 'O mně (nepovinné)',
+      placeholderAbout: 'Např.: Mám potíže s komunikací, v případě potřeby zavolejte rodičům.',
+      hintAbout: 'Zbývá {n} znaků.',
       labelTel: 'Hlavní kontakt',
       hintTel: 'Zadejte včetně předvolby, např. +420 777 123 456.',
       labelTel2: 'Záložní kontakt (nepovinné)',
@@ -564,6 +643,10 @@
       successClose: 'Tuhle stránku teď můžete v klidu zavřít, nic dalšího dělat nemusíte.',
       successNote: 'Pokud budete někdy potřebovat kontakt změnit, napište nám na info@hopely.cz.',
       errMissingId: 'Zadejte prosím sériové číslo.',
+      errMissingName: 'Zadejte prosím jméno.',
+      consentText: 'Potvrzuji, že jsem oprávněn/a tyto údaje vyplnit, ať už jde o mě, o osobu, jejímž jsem zákonným zástupcem, nebo o osobu, jejíž péčí jsem byl/a pověřen/a (např. jako pečovatel, učitel nebo doprovod na akci), a souhlasím s tím, že zadané údaje budou uloženy a zobrazeny komukoli, kdo produkt naskenuje. Podrobnosti v {link}.',
+      consentLinkText: 'zásadách ochrany osobních údajů',
+      errMissingConsent: 'Potvrďte prosím souhlas se zpracováním údajů.',
       errMissingTel: 'Zadejte prosím telefonní číslo.',
       errAlreadyActivated: 'Toto sériové číslo je již aktivované. Pokud si myslíte, že jde o omyl, napište nám.',
       errIdNotFound: 'Toto sériové číslo v systému neexistuje. Zkontrolujte, zda jste ho opsali správně.',
@@ -589,6 +672,13 @@
       welcomeBtn: 'Activate product',
       labelId: 'Serial number',
       hintId: 'You can find it on the packaging or directly on the product.',
+      personSectionLabel: 'Details of the person at risk',
+      contactsSectionLabel: 'Responsible people',
+      labelName: 'First name',
+      placeholderName: 'e.g. Anna',
+      labelAbout: 'About me (optional)',
+      placeholderAbout: 'E.g.: I have trouble communicating, please call my parents if needed.',
+      hintAbout: '{n} characters left.',
       labelTel: 'Primary contact',
       hintTel: 'Include the country code, e.g. +420 777 123 456.',
       labelTel2: 'Backup contact (optional)',
@@ -600,6 +690,10 @@
       successClose: "You can safely close this page now, there's nothing else to do.",
       successNote: 'If you ever need to change the contact, just email us at info@hopely.cz.',
       errMissingId: 'Please enter the serial number.',
+      errMissingName: 'Please enter your first name.',
+      consentText: "I confirm I'm authorised to provide this information, whether it's about me, someone I'm the legal guardian of, or someone I've been entrusted to look after (e.g. as a carer, teacher, or chaperone on a trip), and I agree that the entered information will be stored and shown to anyone who scans the product. Details in {link}.",
+      consentLinkText: 'the privacy policy',
+      errMissingConsent: 'Please confirm your consent to processing this data.',
       errMissingTel: 'Please enter the phone number.',
       errAlreadyActivated: 'This serial number is already activated. If you think this is a mistake, please contact us.',
       errIdNotFound: "This serial number doesn't exist in the system. Please check that you typed it correctly.",
@@ -625,6 +719,13 @@
       welcomeBtn: 'Produkt aktivieren',
       labelId: 'Seriennummer',
       hintId: 'Sie finden diese auf der Verpackung oder direkt auf dem Produkt.',
+      personSectionLabel: 'Angaben zur gefährdeten Person',
+      contactsSectionLabel: 'Verantwortliche Personen',
+      labelName: 'Vorname',
+      placeholderName: 'z. B. Anna',
+      labelAbout: 'Über mich (optional)',
+      placeholderAbout: 'Z. B.: Ich habe Kommunikationsschwierigkeiten, bitte rufen Sie im Bedarfsfall meine Eltern an.',
+      hintAbout: 'Noch {n} Zeichen übrig.',
       labelTel: 'Hauptkontakt',
       hintTel: 'Bitte mit Vorwahl angeben, z. B. +420 777 123 456.',
       labelTel2: 'Ersatzkontakt (optional)',
@@ -636,6 +737,10 @@
       successClose: 'Sie können diese Seite jetzt bedenkenlos schließen, es ist nichts weiter zu tun.',
       successNote: 'Falls Sie den Kontakt später ändern möchten, schreiben Sie uns einfach an info@hopely.cz.',
       errMissingId: 'Bitte geben Sie die Seriennummer ein.',
+      errMissingName: 'Bitte geben Sie Ihren Vornamen ein.',
+      consentText: 'Ich bestätige, dass ich zur Angabe dieser Daten berechtigt bin, sei es für mich selbst, für eine Person, deren gesetzlicher Vertreter ich bin, oder für eine Person, deren Betreuung mir anvertraut wurde (z. B. als Betreuer, Lehrer oder Begleitperson bei einem Ausflug), und ich stimme zu, dass die eingegebenen Daten gespeichert und jedem angezeigt werden, der das Produkt scannt. Details in {link}.',
+      consentLinkText: 'den Datenschutzbestimmungen',
+      errMissingConsent: 'Bitte bestätigen Sie die Einwilligung zur Datenverarbeitung.',
       errMissingTel: 'Bitte geben Sie die Telefonnummer ein.',
       errAlreadyActivated: 'Diese Seriennummer ist bereits aktiviert. Falls Sie glauben, dass dies ein Irrtum ist, kontaktieren Sie uns bitte.',
       errIdNotFound: 'Diese Seriennummer existiert nicht im System. Bitte überprüfen Sie Ihre Eingabe.',
@@ -661,6 +766,13 @@
       welcomeBtn: 'Activer le produit',
       labelId: 'Numéro de série',
       hintId: "Vous le trouverez sur l'emballage ou directement sur le produit.",
+      personSectionLabel: 'Informations sur la personne en détresse',
+      contactsSectionLabel: 'Personnes responsables',
+      labelName: 'Prénom',
+      placeholderName: 'ex. Anna',
+      labelAbout: 'À propos de moi (facultatif)',
+      placeholderAbout: "Ex. : J'ai des difficultés à communiquer, veuillez appeler mes parents si nécessaire.",
+      hintAbout: '{n} caractères restants.',
       labelTel: 'Contact principal',
       hintTel: "Indiquez l'indicatif, par ex. +420 777 123 456.",
       labelTel2: 'Contact de secours (facultatif)',
@@ -672,6 +784,10 @@
       successClose: "Vous pouvez fermer cette page en toute tranquillité, il n'y a rien d'autre à faire.",
       successNote: "Si vous devez un jour modifier le contact, écrivez-nous simplement à info@hopely.cz.",
       errMissingId: 'Veuillez saisir le numéro de série.',
+      errMissingName: 'Veuillez saisir votre prénom.',
+      consentText: "Je confirme être autorisé à saisir ces informations, qu'il s'agisse de moi, d'une personne dont je suis le représentant légal, ou d'une personne dont la garde m'a été confiée (par ex. comme accompagnateur, enseignant ou responsable lors d'une sortie), et j'accepte que les informations saisies soient enregistrées et affichées à toute personne qui scanne le produit. Détails dans {link}.",
+      consentLinkText: 'la politique de confidentialité',
+      errMissingConsent: 'Veuillez confirmer votre consentement au traitement des données.',
       errMissingTel: 'Veuillez saisir le numéro de téléphone.',
       errAlreadyActivated: "Ce numéro de série est déjà activé. Si vous pensez qu'il s'agit d'une erreur, contactez-nous.",
       errIdNotFound: "Ce numéro de série n'existe pas dans le système. Veuillez vérifier votre saisie.",
@@ -697,6 +813,13 @@
       welcomeBtn: 'Activar producto',
       labelId: 'Número de serie',
       hintId: 'Lo encontrará en el embalaje o directamente en el producto.',
+      personSectionLabel: 'Datos de la persona en riesgo',
+      contactsSectionLabel: 'Personas responsables',
+      labelName: 'Nombre',
+      placeholderName: 'ej. Anna',
+      labelAbout: 'Sobre mí (opcional)',
+      placeholderAbout: 'Ej.: Tengo dificultades de comunicación, llame a mis padres si es necesario.',
+      hintAbout: 'Quedan {n} caracteres.',
       labelTel: 'Contacto principal',
       hintTel: 'Incluya el prefijo, por ejemplo +420 777 123 456.',
       labelTel2: 'Contacto de respaldo (opcional)',
@@ -708,6 +831,10 @@
       successClose: 'Ya puede cerrar esta página tranquilamente, no hay nada más que hacer.',
       successNote: 'Si alguna vez necesita cambiar el contacto, escríbanos a info@hopely.cz.',
       errMissingId: 'Introduzca el número de serie.',
+      errMissingName: 'Introduzca su nombre.',
+      consentText: 'Confirmo que estoy autorizado/a a introducir estos datos, ya sea porque son los míos, porque soy el tutor legal de la persona, o porque tengo a mi cargo el cuidado de esa persona (por ejemplo, como cuidador, profesor o acompañante en una excursión), y acepto que los datos introducidos se guarden y se muestren a cualquiera que escanee el producto. Más información en {link}.',
+      consentLinkText: 'la política de privacidad',
+      errMissingConsent: 'Confirme su consentimiento para el tratamiento de los datos.',
       errMissingTel: 'Introduzca el número de teléfono.',
       errAlreadyActivated: 'Este número de serie ya está activado. Si cree que se trata de un error, contáctenos.',
       errIdNotFound: 'Este número de serie no existe en el sistema. Compruebe que lo ha introducido correctamente.',
@@ -733,6 +860,13 @@
       welcomeBtn: 'Aktywuj produkt',
       labelId: 'Numer seryjny',
       hintId: 'Znajdą go Państwo na opakowaniu lub bezpośrednio na produkcie.',
+      personSectionLabel: 'Dane osoby zagrożonej',
+      contactsSectionLabel: 'Osoby odpowiedzialne',
+      labelName: 'Imię',
+      placeholderName: 'np. Anna',
+      labelAbout: 'O mnie (opcjonalnie)',
+      placeholderAbout: 'Np.: Mam trudności z komunikacją, w razie potrzeby proszę zadzwonić do rodziców.',
+      hintAbout: 'Pozostało {n} znaków.',
       labelTel: 'Kontakt główny',
       hintTel: 'Proszę podać numer z numerem kierunkowym, np. +420 777 123 456.',
       labelTel2: 'Kontakt zapasowy (opcjonalnie)',
@@ -744,6 +878,10 @@
       successClose: 'Tę stronę mogą Państwo teraz spokojnie zamknąć, nic więcej nie trzeba robić.',
       successNote: 'Jeśli kiedykolwiek będą Państwo chcieli zmienić kontakt, prosimy o wiadomość na info@hopely.cz.',
       errMissingId: 'Proszę podać numer seryjny.',
+      errMissingName: 'Proszę podać imię.',
+      consentText: 'Potwierdzam, że jestem upoważniony/a do podania tych danych, niezależnie od tego, czy dotyczą mnie, osoby, której jestem przedstawicielem ustawowym, czy osoby, której opieka została mi powierzona (np. jako opiekunowi, nauczycielowi lub osobie prowadzącej wycieczkę), i zgadzam się, że podane dane zostaną zapisane i wyświetlone każdemu, kto zeskanuje produkt. Szczegóły w {link}.',
+      consentLinkText: 'polityce ochrony danych osobowych',
+      errMissingConsent: 'Proszę potwierdzić zgodę na przetwarzanie danych.',
       errMissingTel: 'Proszę podać numer telefonu.',
       errAlreadyActivated: 'Ten numer seryjny jest już aktywowany. Jeśli uważają Państwo, że to pomyłka, prosimy o kontakt.',
       errIdNotFound: 'Ten numer seryjny nie istnieje w systemie. Proszę sprawdzić poprawność wpisu.',
@@ -790,10 +928,18 @@
   const safecardContent = document.getElementById('safecard-content');
   const welcomeContent = document.getElementById('welcome-content');
   const idInput = document.getElementById('idInput');
+  const nameInput = document.getElementById('nameInput');
+  const aboutInput = document.getElementById('aboutInput');
+
+  function updateAboutHint(t) {
+    const tt = t || translations[currentLang] || translations.cs;
+    const remaining = 160 - aboutInput.value.length;
+    document.getElementById('hint-about-text').textContent = tt.hintAbout.replace('{n}', remaining);
+  }
 
   const statusLoading = document.getElementById('status-loading');
 
-  function showSafecard(phone, phone2) {
+  function showSafecard(phone, phone2, name, about) {
     currentTel = phone;
     currentTel2 = phone2 || '';
     if (phone) {
@@ -807,6 +953,14 @@
       callLink2.style.display = '';
     } else {
       callLink2.style.display = 'none';
+    }
+    if (name) {
+      document.getElementById('person-name-text').textContent = name;
+      document.getElementById('person-about-text').textContent = about || '';
+      document.getElementById('person-about-text').style.display = about ? '' : 'none';
+      document.getElementById('person-info').style.display = '';
+    } else {
+      document.getElementById('person-info').style.display = 'none';
     }
     statusLoading.style.display = 'none';
     safecardContent.style.display = '';
@@ -843,7 +997,7 @@
         let data;
         try { data = JSON.parse(text); } catch (e) { data = null; }
         if (data && data.success && data.activated) {
-          showSafecard(data.tel || '', data.tel2 || '');
+          showSafecard(data.tel || '', data.tel2 || '', data.name || '', data.about || '');
         } else {
           showWelcome();
         }
@@ -873,10 +1027,18 @@
 
     document.getElementById('label-id-text').textContent = t.labelId;
     document.getElementById('hint-id-text').textContent = t.hintId;
+    document.getElementById('person-section-label').textContent = t.personSectionLabel;
+    document.getElementById('contacts-section-label').textContent = t.contactsSectionLabel;
+    document.getElementById('label-name-text').textContent = t.labelName;
+    nameInput.placeholder = t.placeholderName;
+    document.getElementById('label-about-text').textContent = t.labelAbout;
+    aboutInput.placeholder = t.placeholderAbout;
+    updateAboutHint(t);
     document.getElementById('label-tel-text').textContent = t.labelTel;
     document.getElementById('hint-tel-text').textContent = t.hintTel;
     document.getElementById('label-tel2-text').textContent = t.labelTel2;
     document.getElementById('hint-tel2-text').textContent = t.hintTel2;
+    document.getElementById('consent-text').innerHTML = t.consentText.replace('{link}', '<a href="https://www.hopely.cz/zasady-ochrany-osobnich-udaju" target="_blank" rel="noopener">' + t.consentLinkText + '</a>');
     document.getElementById('footer-text-el').textContent = t.footerText;
     document.getElementById('success-title-text').textContent = t.successTitle;
     document.getElementById('success-lead-text').textContent = t.successLead;
@@ -959,6 +1121,7 @@
 
   const telInput = document.getElementById('telInput');
   const telInput2 = document.getElementById('telInput2');
+  const consentCheckbox = document.getElementById('consentCheckbox');
   const submitBtn = document.getElementById('submitBtn');
   const submitSpinner = document.getElementById('submit-spinner');
   const submitArrow = document.getElementById('submit-arrow');
@@ -972,14 +1135,22 @@
     statusBox.className = 'status show ' + (ok ? 'ok' : 'err');
   }
 
+  aboutInput.addEventListener('input', function () {
+    updateAboutHint();
+  });
+
   submitBtn.addEventListener('click', function () {
     const t = translations[currentLang] || translations.cs;
     const id = idInput.value.trim();
+    const submittedName = nameInput.value.trim();
+    const submittedAbout = aboutInput.value.trim();
     const submittedTel = telInput.value.trim();
     const submittedTel2 = telInput2.value.trim();
 
     if (!id) { showStatus(t.errMissingId, false); return; }
+    if (!submittedName) { showStatus(t.errMissingName, false); return; }
     if (!submittedTel) { showStatus(t.errMissingTel, false); return; }
+    if (!consentCheckbox.checked) { showStatus(t.errMissingConsent, false); return; }
 
     submitBtn.disabled = true;
     submitSpinner.style.display = 'inline-block';
@@ -989,8 +1160,11 @@
 
     const body = new URLSearchParams();
     body.append('id', id);
+    body.append('name', submittedName);
+    body.append('about', submittedAbout);
     body.append('tel', submittedTel);
     body.append('tel2', submittedTel2);
+    body.append('consent', 'true');
 
     fetch(SCRIPT_URL, {
       method: 'POST',
@@ -1014,7 +1188,9 @@
             already_activated: t.errAlreadyActivated,
             id_not_found: t.errIdNotFound,
             missing_id: t.errMissingId,
-            missing_tel: t.errMissingTel
+            missing_tel: t.errMissingTel,
+            missing_name: t.errMissingName,
+            missing_consent: t.errMissingConsent
           };
           showStatus(messages[data.error] || data.message || t.errGeneric, false);
         }
