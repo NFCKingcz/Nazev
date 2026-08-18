@@ -39,14 +39,14 @@
     background:var(--surface);
     border:1px solid var(--border);
     border-radius:var(--radius);
-    padding:52px 30px 34px;
+    padding:44px 30px 28px;
     text-align:center;
     box-shadow:0 1px 2px rgba(28,22,16,0.02), 0 12px 32px rgba(28,22,16,0.04);
   }
   .card-header{
     display:flex;
     justify-content:center;
-    margin-bottom:32px;
+    margin-bottom:22px;
   }
   .brand-logo{
     display:block;
@@ -133,7 +133,7 @@
     line-height:1;
   }
   .footer-text{
-    margin-top:28px;
+    margin-top:18px;
     text-align:center;
     font-size:11px;
     color:var(--muted);
@@ -206,7 +206,7 @@
     line-height:1.3;
     letter-spacing:0;
     color:#3A342C;
-    margin-bottom:14px;
+    margin-bottom:10px;
   }
   .lead{
     font-size:15px;
@@ -219,11 +219,11 @@
   #lead-text{
     font-weight:700;
     color:#3A342C;
-    margin-bottom:14px;
+    margin-bottom:10px;
   }
   #person-info{
-    margin:16px 0 24px;
-    padding:14px 16px;
+    margin:10px 0 16px;
+    padding:11px 14px;
     background:#FAF7F3;
     border-radius:14px;
   }
@@ -275,8 +275,8 @@
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    gap:9px;
-    padding:22px 12px;
+    gap:7px;
+    padding:15px 12px;
     border-radius:18px;
     text-decoration:none;
     transition:transform 0.15s ease;
@@ -284,9 +284,9 @@
   .contact-panel:active{transform:scale(0.97);}
   .contact-panel:focus-visible{outline:3px solid var(--accent-soft);outline-offset:3px;}
   .contact-panel-primary{
-    background:#1F5C33;
+    background:#2F5DE3;
     color:#fff;
-    box-shadow:0 10px 24px rgba(31,92,51,0.25);
+    box-shadow:0 10px 24px rgba(47,93,227,0.25);
   }
   .contact-panel-secondary{
     background:#EFEFEF;
@@ -382,6 +382,21 @@
     font-size:14px;
   }
   .fallback-btn:active{background:#FAFAF9;}
+  #safecard-content .divider{
+    margin:18px 0 14px;
+  }
+  #safecard-content .fallback-label{
+    margin-bottom:8px;
+  }
+  #safecard-content .fallback-btn{
+    padding:11px 18px;
+  }
+  #safecard-content .call-btn-secondary{
+    padding:12px 20px;
+  }
+  #safecard-content .feedback-thanks{
+    margin-top:10px;
+  }
   .footer{
     margin-top:28px;
     display:flex;
@@ -700,7 +715,8 @@
       categoryChild: 'Dítě',
       categorySenior: 'Senior',
       aboutLabel: 'O mně:',
-      lead: 'Stisknutím se spojíte s osobou.',
+      aboutEmpty: 'Údaje nebyly vyplněny.',
+      lead: 'Kontakt na zodpovědnou osobu.',
       callPrefix: 'Zavolat ',
       callAction: 'Zavolat',
       backupLabel: 'Záložní kontakt',
@@ -760,7 +776,8 @@
       categoryChild: 'Child',
       categorySenior: 'Senior',
       aboutLabel: 'About me:',
-      lead: 'Press to reach someone close.',
+      aboutEmpty: 'No information provided.',
+      lead: 'Contact for the responsible person.',
       callPrefix: 'Call ',
       callAction: 'Call',
       backupLabel: 'Backup contact',
@@ -820,7 +837,8 @@
       categoryChild: 'Kind',
       categorySenior: 'Senior',
       aboutLabel: 'Über mich:',
-      lead: 'Taste drücken, um zu verbinden.',
+      aboutEmpty: 'Keine Angaben gemacht.',
+      lead: 'Kontakt zur verantwortlichen Person.',
       callPrefix: 'Anrufen ',
       callAction: 'Anrufen',
       backupLabel: 'Ersatzkontakt',
@@ -880,7 +898,8 @@
       categoryChild: 'Enfant',
       categorySenior: 'Senior',
       aboutLabel: 'À propos de moi :',
-      lead: 'Appuyez pour joindre un proche.',
+      aboutEmpty: 'Aucune information renseignée.',
+      lead: 'Contact de la personne responsable.',
       callPrefix: 'Appeler ',
       callAction: 'Appeler',
       backupLabel: 'Contact de secours',
@@ -940,7 +959,8 @@
       categoryChild: 'Niño/a',
       categorySenior: 'Mayor',
       aboutLabel: 'Sobre mí:',
-      lead: 'Pulse para contactar a alguien.',
+      aboutEmpty: 'No se proporcionó información.',
+      lead: 'Contacto de la persona responsable.',
       callPrefix: 'Llamar ',
       callAction: 'Llamar',
       backupLabel: 'Contacto de respaldo',
@@ -1000,7 +1020,8 @@
       categoryChild: 'Dziecko',
       categorySenior: 'Senior',
       aboutLabel: 'O mnie:',
-      lead: 'Naciśnij, aby połączyć się z osobą.',
+      aboutEmpty: 'Nie podano informacji.',
+      lead: 'Kontakt do osoby odpowiedzialnej.',
       callPrefix: 'Zadzwoń ',
       callAction: 'Zadzwoń',
       backupLabel: 'Kontakt zapasowy',
@@ -1118,6 +1139,11 @@
     return currentPersonName ? withName.replace('{name}', currentPersonName) : base;
   }
 
+  function getPersonAboutText(t) {
+    const tt = t || translations[currentLang] || translations.cs;
+    return currentPersonAbout || tt.aboutEmpty;
+  }
+
   const statusLoading = document.getElementById('status-loading');
 
   function showSafecard(phone, phone2, name, about, category) {
@@ -1138,13 +1164,6 @@
     currentPersonName = name || '';
     currentPersonAbout = about || '';
     currentPersonCategory = category || 'universal';
-    document.getElementById('title-text').textContent = getSafecardTitle();
-    if (currentPersonAbout) {
-      document.getElementById('person-about-text').textContent = currentPersonAbout;
-      document.getElementById('person-info').style.display = '';
-    } else {
-      document.getElementById('person-info').style.display = 'none';
-    }
     statusLoading.style.display = 'none';
     safecardContent.style.display = '';
     welcomeContent.style.display = 'none';
@@ -1196,6 +1215,8 @@
     document.getElementById('loading-text-el').textContent = t.loadingText;
     document.getElementById('title-text').textContent = getSafecardTitle(t);
     document.getElementById('person-about-label-text').textContent = t.aboutLabel;
+    document.getElementById('person-about-text').textContent = getPersonAboutText(t);
+    document.getElementById('person-info').style.display = '';
     document.getElementById('lead-text').textContent = t.lead;
     document.getElementById('fallback-label-text').textContent = t.fallbackLabel;
     document.getElementById('fallback-btn-text').textContent = t.fallbackBtn;
