@@ -441,13 +441,18 @@
     color:var(--muted);
     margin-top:5px;
   }
-  .tel-fields-row{
-    display:flex;
-    gap:12px;
+  .form-section-box{
+    margin-top:32px;
+    padding:20px 18px 22px;
+    background:#FAF7F3;
+    border-radius:16px;
+    border:1px solid var(--border);
   }
-  .tel-field-group{
-    flex:1;
-    min-width:0;
+  .form-section-box .section-label{
+    margin-bottom:14px;
+  }
+  .form-section-box label:first-of-type{
+    margin-top:0;
   }
   .consent-label{
     display:flex;
@@ -623,20 +628,16 @@
         <textarea id="aboutInput" rows="3" maxlength="160" placeholder="Např.: Mám potíže s komunikací, v případě potřeby zavolejte rodičům."></textarea>
         <p class="hint" id="hint-about-text">Zbývá 160 znaků.</p>
 
-        <div class="divider"></div>
-        <p class="section-label" style="text-align:left;" id="contacts-section-label">Zodpovědné osoby</p>
+        <div class="form-section-box">
+          <p class="section-label" style="text-align:left;" id="contacts-section-label">Zodpovědné osoby</p>
 
-        <div class="tel-fields-row">
-          <div class="tel-field-group">
-            <label for="telInput" id="label-tel-text">Hlavní kontakt</label>
-            <input type="tel" id="telInput" placeholder="+420777123456" autocomplete="tel">
-            <p class="hint" id="hint-tel-text">Zadejte včetně předvolby, např. +420 777 123 456.</p>
-          </div>
-          <div class="tel-field-group">
-            <label for="telInput2" id="label-tel2-text">Záložní kontakt (nepovinné)</label>
-            <input type="tel" id="telInput2" placeholder="+420777123456" autocomplete="tel">
-            <p class="hint" id="hint-tel2-text">Zadejte včetně předvolby, např. +420 777 123 456.</p>
-          </div>
+          <label for="telInput" id="label-tel-text">Hlavní kontakt</label>
+          <input type="tel" id="telInput" placeholder="+420777123456" autocomplete="tel">
+          <p class="hint" id="hint-tel-text">Zadejte včetně předvolby, např. +420 777 123 456.</p>
+
+          <label for="telInput2" id="label-tel2-text">Záložní kontakt (nepovinné)</label>
+          <input type="tel" id="telInput2" placeholder="+420777123456" autocomplete="tel">
+          <p class="hint" id="hint-tel2-text">Zadejte včetně předvolby, např. +420 777 123 456.</p>
         </div>
 
         <label class="consent-label" for="consentCheckbox">
@@ -705,7 +706,7 @@
       fallbackLabel: 'Vypadá to vážně?',
       fallbackBtn: 'Zavolat linku 112',
       welcomeTitle: 'Aktivace produktu',
-      welcomeLead: 'Vyplňte potřebné kontaktní údaje pro případ nouze a produkt aktivujte.',
+      welcomeLead: 'Vyplňte kontaktní údaje pro případ nouze a produkt aktivujte.',
       welcomeBtn: 'Aktivovat produkt',
       labelId: 'Sériové číslo',
       hintId: 'Najdete ho na obalu nebo přímo na výrobku.',
@@ -713,8 +714,9 @@
       contactsSectionLabel: 'Zodpovědné osoby',
       labelName: 'Křestní jméno',
       placeholderName: 'např. Anna',
+      placeholderNameSenior: 'např. Josef',
       labelAbout: 'O mně (nepovinné)',
-      placeholderAbout: 'Např.: Anna se stydí mluvit s cizími lidmi, raději mluví se ženami než s muži.',
+      placeholderAbout: 'Např.: Anna se stydí mluvit s cizími lidmi, zůstaňte prosím s ní, dokud nedorazí rodič.',
       placeholderAboutSenior: 'Např.: Josef hůř slyší, mluvte prosím pomalu a nahlas.',
       hintAbout: 'Zbývá {n} znaků.',
       labelTel: 'Hlavní kontakt',
@@ -764,7 +766,7 @@
       fallbackLabel: 'Does this look serious?',
       fallbackBtn: 'Call emergency line 112',
       welcomeTitle: 'Activate the product',
-      welcomeLead: 'Fill in the contact details needed for an emergency and activate the product.',
+      welcomeLead: 'Fill in the contact details for an emergency and activate the product.',
       welcomeBtn: 'Activate product',
       labelId: 'Serial number',
       hintId: 'You can find it on the packaging or directly on the product.',
@@ -772,8 +774,9 @@
       contactsSectionLabel: 'Responsible people',
       labelName: 'First name',
       placeholderName: 'e.g. Anna',
+      placeholderNameSenior: 'e.g. Josef',
       labelAbout: 'About me (optional)',
-      placeholderAbout: 'E.g.: Anna is shy around strangers and finds it easier to talk to women than men.',
+      placeholderAbout: 'E.g.: Anna is shy around strangers, please stay with her until a parent arrives.',
       placeholderAboutSenior: 'E.g.: Josef has trouble hearing, please speak slowly and clearly.',
       hintAbout: '{n} characters left.',
       labelTel: 'Primary contact',
@@ -823,7 +826,7 @@
       fallbackLabel: 'Sieht das ernst aus?',
       fallbackBtn: 'Notruf 112 anrufen',
       welcomeTitle: 'Produktaktivierung',
-      welcomeLead: 'Tragen Sie die für den Notfall nötigen Kontaktdaten ein und aktivieren Sie das Produkt.',
+      welcomeLead: 'Tragen Sie die Kontaktdaten für den Notfall ein und aktivieren Sie das Produkt.',
       welcomeBtn: 'Produkt aktivieren',
       labelId: 'Seriennummer',
       hintId: 'Sie finden diese auf der Verpackung oder direkt auf dem Produkt.',
@@ -831,8 +834,9 @@
       contactsSectionLabel: 'Verantwortliche Personen',
       labelName: 'Vorname',
       placeholderName: 'z. B. Anna',
+      placeholderNameSenior: 'z. B. Josef',
       labelAbout: 'Über mich (optional)',
-      placeholderAbout: 'Z. B.: Anna ist schüchtern gegenüber Fremden und spricht lieber mit Frauen als mit Männern.',
+      placeholderAbout: 'Z. B.: Anna ist schüchtern gegenüber Fremden, bitte bleiben Sie bei ihr, bis ein Elternteil eintrifft.',
       placeholderAboutSenior: 'Z. B.: Josef hört schlecht, bitte sprechen Sie langsam und deutlich.',
       hintAbout: 'Noch {n} Zeichen übrig.',
       labelTel: 'Hauptkontakt',
@@ -882,7 +886,7 @@
       fallbackLabel: "Est-ce que ça semble grave ?",
       fallbackBtn: "Appeler le 112",
       welcomeTitle: 'Activation du produit',
-      welcomeLead: "Renseignez les coordonnées nécessaires en cas d'urgence et activez le produit.",
+      welcomeLead: "Renseignez les coordonnées en cas d'urgence et activez le produit.",
       welcomeBtn: 'Activer le produit',
       labelId: 'Numéro de série',
       hintId: "Vous le trouverez sur l'emballage ou directement sur le produit.",
@@ -890,8 +894,9 @@
       contactsSectionLabel: 'Personnes responsables',
       labelName: 'Prénom',
       placeholderName: 'ex. Anna',
+      placeholderNameSenior: 'ex. Josef',
       labelAbout: 'À propos de moi (facultatif)',
-      placeholderAbout: "Ex. : Anna est timide avec les inconnus et parle plus facilement aux femmes qu'aux hommes.",
+      placeholderAbout: "Ex. : Anna est timide avec les inconnus, merci de rester avec elle jusqu'à l'arrivée d'un parent.",
       placeholderAboutSenior: "Ex. : Josef entend mal, veuillez parler lentement et distinctement.",
       hintAbout: '{n} caractères restants.',
       labelTel: 'Contact principal',
@@ -941,7 +946,7 @@
       fallbackLabel: '¿Parece grave?',
       fallbackBtn: 'Llamar al 112',
       welcomeTitle: 'Activación del producto',
-      welcomeLead: 'Complete los datos de contacto necesarios para una emergencia y active el producto.',
+      welcomeLead: 'Complete los datos de contacto para una emergencia y active el producto.',
       welcomeBtn: 'Activar producto',
       labelId: 'Número de serie',
       hintId: 'Lo encontrará en el embalaje o directamente en el producto.',
@@ -949,8 +954,9 @@
       contactsSectionLabel: 'Personas responsables',
       labelName: 'Nombre',
       placeholderName: 'ej. Anna',
+      placeholderNameSenior: 'ej. Josef',
       labelAbout: 'Sobre mí (opcional)',
-      placeholderAbout: 'Ej.: Anna es tímida con desconocidos y le resulta más fácil hablar con mujeres que con hombres.',
+      placeholderAbout: 'Ej.: Anna es tímida con desconocidos, quédese con ella hasta que llegue un padre o madre.',
       placeholderAboutSenior: 'Ej.: El señor Novák oye mal, por favor hable despacio y claro.',
       hintAbout: 'Quedan {n} caracteres.',
       labelTel: 'Contacto principal',
@@ -1000,7 +1006,7 @@
       fallbackLabel: 'Wygląda to poważnie?',
       fallbackBtn: 'Zadzwoń na 112',
       welcomeTitle: 'Aktywacja produktu',
-      welcomeLead: 'Proszę podać dane kontaktowe potrzebne w razie sytuacji awaryjnej i aktywować produkt.',
+      welcomeLead: 'Proszę podać dane kontaktowe na wypadek sytuacji awaryjnej i aktywować produkt.',
       welcomeBtn: 'Aktywuj produkt',
       labelId: 'Numer seryjny',
       hintId: 'Znajdą go Państwo na opakowaniu lub bezpośrednio na produkcie.',
@@ -1008,8 +1014,9 @@
       contactsSectionLabel: 'Osoby odpowiedzialne',
       labelName: 'Imię',
       placeholderName: 'np. Anna',
+      placeholderNameSenior: 'np. Josef',
       labelAbout: 'O mnie (opcjonalnie)',
-      placeholderAbout: 'Np.: Anna jest nieśmiała wobec obcych i chętniej rozmawia z kobietami niż z mężczyznami.',
+      placeholderAbout: 'Np.: Anna jest nieśmiała wobec obcych, proszę zostać z nią do przyjazdu rodzica.',
       hintAbout: 'Pozostało {n} znaków.',
       labelTel: 'Kontakt główny',
       hintTel: 'Proszę podać numer z numerem kierunkowym, np. +420 777 123 456.',
@@ -1083,6 +1090,12 @@
     const tt = t || translations[currentLang] || translations.cs;
     const remaining = 160 - aboutInput.value.length;
     document.getElementById('hint-about-text').textContent = tt.hintAbout.replace('{n}', remaining);
+  }
+
+  function updateAboutPlaceholder(t) {
+    const tt = t || translations[currentLang] || translations.cs;
+    aboutInput.placeholder = categorySelect.value === 'senior' ? tt.placeholderAboutSenior : tt.placeholderAbout;
+    nameInput.placeholder = categorySelect.value === 'senior' ? tt.placeholderNameSenior : tt.placeholderName;
   }
 
   function getSafecardTitle(t) {
@@ -1200,9 +1213,8 @@
     document.getElementById('option-category-child').textContent = t.categoryChild;
     document.getElementById('option-category-senior').textContent = t.categorySenior;
     document.getElementById('label-name-text').textContent = t.labelName;
-    nameInput.placeholder = t.placeholderName;
     document.getElementById('label-about-text').textContent = t.labelAbout;
-    aboutInput.placeholder = t.placeholderAbout;
+    updateAboutPlaceholder(t);
     updateAboutHint(t);
     document.getElementById('label-tel-text').textContent = t.labelTel;
     document.getElementById('hint-tel-text').textContent = t.hintTel;
@@ -1307,6 +1319,10 @@
 
   aboutInput.addEventListener('input', function () {
     updateAboutHint();
+  });
+
+  categorySelect.addEventListener('change', function () {
+    updateAboutPlaceholder();
   });
 
   submitBtn.addEventListener('click', function () {
